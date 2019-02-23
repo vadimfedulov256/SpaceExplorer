@@ -1,6 +1,7 @@
 import string
 import random
 import time
+import os
 from tqdm import tqdm
 
 from System import System
@@ -20,6 +21,7 @@ res = False
 p_res = [False, False, False]
 sp_res = [False, False, False]
 z = '*' * 80
+hard = False
 
 Sys = System()
 St = Star(Sys)
@@ -31,6 +33,12 @@ def titles():
     tit2 = 'Разработчик: Vadim Fedulov'
     tit3 = 'Год 2019, v0.9, Python3.7.2'
     tit4 = f'{z}\nОсобые благодарности: GLaDIS, Даше, Насте и Лесе\n{z}'
+    tit5 = f'Всего прыжков совершено: {jump}'
+    tit6 = f'Всего систем исследовано: {e_sys}'
+    tit7 = f'Всего звезд исследовано: {e_st}'
+    tit8 = f'Всего звезд исследовано совместно: {e_sts}'
+    tit9 = f'Всего черных дыр исследовано: {e_bh}'
+    tit10 = f'Всего черных дыр исследовано совместно: {e_bhs}'
     print(tit1)
     time.sleep(1)
     print(tit2)
@@ -39,6 +47,35 @@ def titles():
     time.sleep(0.75)
     print(tit4)
     time.sleep(1)
+    print(tit5)
+    time.sleep(0.15)
+    print(tit6)
+    time.sleep(0.15)
+    print(tit7)
+    time.sleep(0.15)
+    print(tit8)
+    time.sleep(0.15)
+    print(tit9)
+    time.sleep(0.15)
+    print(tit10)
+    time.sleep(0.1)
+    ask = input(f'Записать ваши результаты в текстовый файл? Д(а)/Н: ')
+    if ask.lower() == 'д' or ask.lower() == 'да':
+        if not os.path.isfile('./results.txt'):
+            pass
+        else:
+            in1 = 'Файл с результатами уже существует'
+            in2 = 'Удалите его или он будет перезаписан'
+            in3 = 'Нажмите любую клавишу и введите, чтобы продолжить: '
+            reask = input(f'{in1}\n{in2}\n{in3}\n')
+        file = open('results.txt', 'w')
+        file.write(f'{tit5}\n')
+        file.write(f'{tit6}\n')
+        file.write(f'{tit7}\n')
+        file.write(f'{tit8}\n')
+        file.write(f'{tit9}\n')
+        file.write(f'{tit10}')
+        file.close()
 
 
 while True:
@@ -67,9 +104,14 @@ while True:
                 sp_res = [False, False, False]
                 enrg -= rj
                 jump += 1
-                Sys = System()
-                St = Star(Sys)
-                Bh = BlackHole(Sys)
+                if hard is not True:
+                    Sys = System()
+                    St = Star(Sys)
+                    Bh = BlackHole(Sys)
+                else:
+                    Sys = System.hard()
+                    St = Star.hard(Sys)
+                    Bh = BlackHole.hard(Sys)
                 j1 = 'На прыжок было потрачено '
                 j2 = ' единиц энергии'
                 j3 = 'Теперь у вас '
@@ -291,8 +333,8 @@ while True:
                     elif sp_res[en-1] is False:
                         clt = '[Неизвестно] секунд'
                     en2 = 'Вы действительно хотите зарядиться? Д(а)/Н'
-                    repeat = input(f'{z}\n{en1}{clt}\n{en2}\n{z}\n')
-                    if repeat.lower() == 'д' or repeat.lower() == 'да':
+                    app = input(f'{z}\n{en1}{clt}\n{en2}\n{z}\n')
+                    if app.lower() == 'д' or app.lower() == 'да':
                         print(f'{z}\nЗаряжаемся от звезды {nst}...')
                         St.get_enrg(en)
                         sp_res[en-1] = True # we will learn speed, but not name
@@ -326,6 +368,10 @@ while True:
         eh1 = 'Список возможных комманд:'
         eh2 = '"Прыжок", "Исследовать", "Зарядиться", "Энергия"'
         print(f'{z}\n{eh1}\n{eh2}\n{z}')
+
+    elif act == 'CRAZYMEGAHELL':
+        hard = True
+        print(f'{z}\nОООООО МОЯЯЯ ОБОРОНААААА!!! HARD ВКЛЮЧЕН ;_)\n{z}')
 
     elif act.lower() == 'выход' or act.lower() == 'конец':
         titles()
