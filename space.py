@@ -262,7 +262,7 @@ while True:
         elif react.lower() == 'помощь':
             h1 = 'Список возможных комманд для исследования объектов:'
             h2 = '"Систему", "Звезду", "Звезды", "Черную дыру", "Черные дыры"'
-            print(f'{z}\n+{h1}\n{h2}\n{z}')
+            print(f'{z}\n{h1}\n{h2}\n{z}')
         elif react.lower() == 'выход' or react.lower() == 'конец':
             titles()
             break
