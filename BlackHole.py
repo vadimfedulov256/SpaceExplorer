@@ -53,22 +53,15 @@ class BlackHole(object):
             self.b = 1
 
     def __num_error(self, number):
+        self.nerr1 = 'Вы ввели некорректный номер черной дыры\n'
+        self.nerr2 = 'Помните, что нужно писать порядковый '
+        self.nerr3 = 'номер объекта данного типа\n'
         if number == 1:
-            self.a1 = 'Вы ввели некорректный номер черной дыры'
-            self.b1 = 'Помните, что нужно писать '
-            self.c1 = 'порядковый номер объекта данного типа'
-            self.d1 = 'В данном случае вы можете написать только "1"'
-            print(self.z)
-            print(self.a1+'\n'+self.b1+self.c1+'\n'+self.d1)
-            print(self.z)
+            self.nerr4 = 'В данном случае вы можете написать только "1"'
         elif number == 2:
-            self.a2 = 'Вы ввели некорректный номер черной дыры'
-            self.b2 = 'Помните, что нужно писать '
-            self.c2 = 'порядковый номер объекта данного типа'
-            self.d2 = 'В данном случае вы можете написать только "1"/"2"'
-            print(self.z)
-            print(self.a2+'\n'+self.b2+self.c2+'\n'+self.d2)
-            print(self.z)
+            self.nerr4 = 'В данном случае вы можете написать только "1"/"2"'
+        self.nerr = f'{self.nerr1}{self.nerr2}{self.nerr3}{self.nerr4}'
+        print(f'{self.z}\n{self.nerr}\n{self.z}')
 
     def _multi_single_error(self, n):
         if self.b is None:
@@ -89,16 +82,16 @@ class BlackHole(object):
             self.h1 = 'В данной системе нет черных дыр для исследования'
             self.h2 = 'Попробуйте исследовать систему, звезды'
             self.h3 = ' или совершить прыжок'
-            print(self.z+'\n'+self.h1+'\n'+self.h2+self.h3+'\n'+self.z)
+            print(f'{self.z}\n{self.h1}\n{self.h2}{self.h3}\n{self.z}')
         elif self.b == 1:
             self.h1 = 'В данной системе есть одна черная дыра для исследования'
             self.h2 = 'Вы можете написать "1" для её исследования'
-            print(self.z+'\n'+self.h1+'\n'+self.h2+'\n'+self.z)
+            print(f'{self.z}\n{self.h1}\n{self.h2}\n{self.z}')
         elif self.b == 2:
             self.h1 = 'В данной системе есть две черные дыры для исследования'
             self.h2 = 'Вы можете написать "1" или "2" для исследования '
             self.h3 = 'одной из них'
-            print(self.z+'\n'+self.h1+'\n'+self.h2+self.h3+'\n'+self.z)
+            print(f'{self.z}\n{self.h1}\n{self.h2}{self.h3}\n{self.z}')
 
     def examine_bh(self, n):
         if self.b is None:
