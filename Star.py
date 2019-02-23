@@ -7,17 +7,17 @@ cl_sn = [0.05, 0.1, 0.15, 0.2, 0.2, 0.25, 0.05]
 m1_sn = [0.05, 0.25, 0.7]
 m2_sn = [0.15, 0.2, 0.25, 0.3, 0.1]
 m3_sn = [0.05, 0.05, 0.1, 0.1, 0.7]
+z = '*' * 80
 
 
 class Star(object):
-    def __init__(self, StarSystem, clp=cl_sn, m1p=m1_sn, m2p=m2_sn, m3p=m3_sn):
+    def __init__(self, Sys, clp=cl_sn, m1p=m1_sn, m2p=m2_sn, m3p=m3_sn, z=z):
         self.cl_var = ['O', 'B', 'A', 'F', 'G', 'K', 'M']
         self.cl_ch_1 = np.random.choice(self.cl_var, p=clp)
         self.cl_ch_2 = np.random.choice(self.cl_var, p=clp)
         self.mOBAF_var = ['150-265', '100-149', '50-99']
         self.mFGK_var = ['50-99', '10-49', '5-9', '1-4', '0.1-0.99']
         self.mM_var = ['150-265', '100-149', '50-99', '1-4', '0.1-0.99']
-        self.z = '*' * 80
 
         def mOBAF_checker(n):
             if n == 1:
@@ -129,7 +129,7 @@ class Star(object):
                     self.t1 = random.randint(2000, 3499)
                     self.m_ch_1 = np.random.choice(self.mM_var, p=m3p)
                     mM_checker(1)
-                self.n_s_1 = StarSystem.get_ns(obj)
+                self.n_s_1 = Sys.get_ns(obj)
                 self.s = s_n
 
             elif n == 2:
@@ -161,21 +161,21 @@ class Star(object):
                     self.t2 = random.randint(2000, 3499)
                     self.m_ch_2 = np.random.choice(self.mM_var, p=m3p)
                     mM_checker(2)
-                self.n_s_2 = StarSystem.get_ns(obj)
+                self.n_s_2 = Sys.get_ns(obj)
                 self.s = s_n
 
         def k_t(temp):
             return temp-271
 
-        if StarSystem.get_obj('St') is None:
+        if Sys.get_obj('St') is None:
             self.s = None
-        elif StarSystem.get_obj('St') == [1]:
+        elif Sys.get_obj('St') == [1]:
             get_temp_m(obj=1, n=1, s_n=1)
             self.t1 = k_t(self.t1)
-        elif StarSystem.get_obj('St') == [3]:
+        elif Sys.get_obj('St') == [3]:
             get_temp_m(obj=3, n=1, s_n=1)
             self.t1 = k_t(self.t1)
-        elif StarSystem.get_obj('St') == [1, 2]:
+        elif Sys.get_obj('St') == [1, 2]:
             get_temp_m(obj=1, n=1, s_n=2)
             get_temp_m(obj=2, n=2, s_n=2)
             self.t1 = k_t(self.t1)
@@ -187,39 +187,45 @@ class Star(object):
             self.b1 = 'Помните, что нужно писать '
             self.c1 = 'порядковый номер объекта данного типа'
             self.d1 = 'В данном случае вы можете написать только "1"'
-            print(self.z)
+            print(z)
             print(self.a1+'\n'+self.b1+self.c1+'\n'+self.d1)
-            print(self.z)
+            print(z)
         elif number == 2:
             self.a2 = 'Вы ввели некорректный номер звезды'
             self.b2 = 'Помните, что нужно писать '
             self.c2 = 'порядковый номер объекта данного типа'
             self.d2 = 'В данном случае вы можете написать только "1"/"2"'
-            print(self.z)
+            print(z)
             print(self.a2+'\n'+self.b2+self.c2+'\n'+self.d2)
-            print(self.z)
+            print(z)
 
-    def __multiple_form(self, n):
-        if int(str(n)[-1]) == 0:
-            return ' градусов Цельсия'
-        elif int(str(n)[-1]) == 1:
-            return ' градус Цельсия'
-        elif int(str(n)[-1]) == 2:
-            return ' градуса Цельсия'
-        elif int(str(n)[-1]) == 3:
-            return ' градуса Цельсия'
-        elif int(str(n)[-1]) == 4:
-            return ' градуса Цельсия'
-        elif int(str(n)[-1]) == 5:
-            return ' градусов Цельсия'
-        elif int(str(n)[-1]) == 6:
-            return ' градусов Цельсия'
-        elif int(str(n)[-1]) == 7:
-            return ' градусов Цельсия'
-        elif int(str(n)[-1]) == 8:
-            return ' градусов Цельсия'
-        elif int(str(n)[-1]) == 9:
-            return ' градусов Цельсия'
+    def __multiple_form(self, n, form):
+        if form == 't':
+            if int(str(n)[-1]) == 0:
+                return ' градусов Цельсия'
+            elif int(str(n)[-1]) == 1:
+                return ' градус Цельсия'
+            elif int(str(n)[-1]) == 2:
+                return ' градуса Цельсия'
+            elif int(str(n)[-1]) == 3:
+                return ' градуса Цельсия'
+            elif int(str(n)[-1]) == 4:
+                return ' градуса Цельсия'
+            elif int(str(n)[-1]) == 5:
+                return ' градусов Цельсия'
+            elif int(str(n)[-1]) == 6:
+                return ' градусов Цельсия'
+            elif int(str(n)[-1]) == 7:
+                return ' градусов Цельсия'
+            elif int(str(n)[-1]) == 8:
+                return ' градусов Цельсия'
+            elif int(str(n)[-1]) == 9:
+                return ' градусов Цельсия'
+        elif form == 'm':
+            if int(str(n)[-1]) == 1:
+                return 'солнечной единицы'
+            else:
+                return 'солнечных единиц'
 
     def _multi_single_error(self, n):
         if self.s is None:
@@ -277,34 +283,34 @@ class Star(object):
                 self.h1 = 'В данной системе нет звезд для исследования'
                 self.h2 = 'Попробуйте исследовать систему, черные дыры'
                 self.h3 = ' или совершить прыжок'
-                print(self.z+'\n'+self.h1+'\n'+self.h2+self.h3+'\n'+self.z)
+                print(z+'\n'+self.h1+'\n'+self.h2+self.h3+'\n'+z)
             elif self.s == 1:
                 self.h1 = 'В данной системе есть одна звезда для исследования'
                 self.h2 = 'Вы можете написать "1" для её исследования'
-                print(self.z+'\n'+self.h1+'\n'+self.h2+'\n'+self.z)
+                print(z+'\n'+self.h1+'\n'+self.h2+'\n'+z)
             elif self.s == 2:
                 self.h1 = 'В данной системе есть две звезды для исследования'
                 self.h2 = 'Вы можете написать "1" или "2" для исследования '
                 self.h3 = 'одной из них'
-                print(self.z+'\n'+self.h1+'\n'+self.h2+self.h3+'\n'+self.z)
+                print(z+'\n'+self.h1+'\n'+self.h2+self.h3+'\n'+z)
         elif h_en is True:
             if self.s is None:
                 self.e1 = 'В данной системе нет звезд для подзарядки'
                 self.e2 = 'Если у вас не хватает энергии на следующий прыжок'
                 self.e3 = 'То к сожалению это конец вашего путешествия'
                 self.e4 = 'Напишите "Конец" или "Выход", чтобы увидеть титры'
-                print(self.z)
+                print(z)
                 print(self.e1+'\n'+self.e2+'\n'+self.e3+'\n'+self.e4)
-                print(self.z)
+                print(z)
             elif self.s == 1:
                 self.e1 = 'В данной системе есть одна звезда для подзарядки'
                 self.e2 = 'Вы можете написать "1" для зарядки от неё'
-                print(self.z+'\n'+self.e1+'\n'+self.e2+'\n'+self.z)
+                print(z+'\n'+self.e1+'\n'+self.e2+'\n'+z)
             elif self.s == 2:
                 self.e1 = 'В данной системе есть две звезды для подзарядки'
                 self.e2 = 'Вы можете написать "1" или "2" для зарядки от '
                 self.e3 = 'одной из них'
-                print(self.z+'\n'+self.e1+'\n'+self.e2+self.e3+'\n'+self.z)
+                print(z+'\n'+self.e1+'\n'+self.e2+self.e3+'\n'+z)
 
     def get_enrg(self, n):
         if n == 1 and self.s is not None:
@@ -354,34 +360,34 @@ class Star(object):
 
     def examine_st(self, n):
         if self.s is None:
-            print(self.z)
+            print(z)
             print('В данной системе нет звезд для исследования')
-            print(self.z)
+            print(z)
         elif self.s == 2 and n is 'all':
-            self.gr1 = self.__multiple_form(self.t1)
-            self.gr2 = self.__multiple_form(self.t2)
+            self.gr1 = self.__multiple_form(self.t1, form='t')
+            self.gr2 = self.__multiple_form(self.t2, form='t')
             self.t1 = str(self.t1)
             self.t2 = str(self.t2)
             self.m1 = str(self.m1)
             self.m2 = str(self.m2)
-            print(self.z)
+            print(z)
             self.desc_1 = self.n_s_1+' - это звезда класса '+self.cl_ch_1
             print(self.desc_1+'. ')
             self.desc_2 = 'Имеет температуру '+self.t1+self.gr1
             print(self.desc_2)
             self.desc_3 = 'И массу '+self.m1+' солнечных единиц'
             print(self.desc_3)
-            print(self.z)
+            print(z)
             self.desc_4 = self.n_s_2+' - это звезда класса '+self.cl_ch_2
             print(self.desc_4+'. ')
             self.desc_5 = 'Имеет температуру '+self.t2+self.gr2
             print(self.desc_5)
             self.desc_6 = 'И массу '+self.m2+' солнечных единиц'
             print(self.desc_6)
-            print(self.z)
+            print(z)
         elif self.s == 1 and n is 'all':
             self.a = 'В данной системе находится только одна звезда'
-            print(self.z+'\n'+self.a+'\n'+self.z)
+            print(z+'\n'+self.a+'\n'+z)
             return True, True
         elif self.s == 1 and n != 1:
             self.__num_error(1)
@@ -389,26 +395,26 @@ class Star(object):
             self.__num_error(2)
             return True, True
         elif self.s == 1 or self.s == 2 and n == 1:
-            self.gr1 = self.__multiple_form(self.t1)
+            self.gr1 = self.__multiple_form(self.t1, form='t')
             self.t1 = str(self.t1)
             self.m1 = str(self.m1)
-            print(self.z)
+            print(z)
             self.desc_1 = self.n_s_1+' - это звезда класса '+self.cl_ch_1
             print(self.desc_1+'. ')
             self.desc_2 = 'Имеет температуру '+self.t1+self.gr1
             print(self.desc_2)
             self.desc_3 = 'И массу '+self.m1+' солнечных единиц'
             print(self.desc_3)
-            print(self.z)
+            print(z)
         elif self.s == 2 and n == 2:
-            self.gr2 = self.__multiple_form(self.t2)
+            self.gr2 = self.__multiple_form(self.t2 , form='t')
             self.t2 = str(self.t2)
             self.m2 = str(self.m2)
-            print(self.z)
+            print(z)
             self.desc_4 = self.n_s_2+' - это звезда класса '+self.cl_ch_2
             print(self.desc_4+'. ')
             self.desc_5 = 'Имеет температуру '+self.t2+self.gr2
             print(self.desc_5)
             self.desc_6 = 'И массу '+self.m2+' солнечных единиц'
             print(self.desc_6)
-            print(self.z)
+            print(z)

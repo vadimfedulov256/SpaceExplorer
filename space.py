@@ -3,13 +3,11 @@ import random
 import time
 from tqdm import tqdm
 
-from StarSystem import StarSystem
+from System import System
 from BlackHole import BlackHole
 from Star import Star
 import achivements as ach
 
-z = '*' * 80
-q = '\n'
 jump = 0
 e_sys = 0
 e_st = 0
@@ -20,10 +18,11 @@ enrg = 5000
 change_rj = True
 res = False
 p_res = [False, False, False]
+z = '*' * 80
 
-StSys = StarSystem()
-St = Star(StSys)
-Bh = BlackHole(StSys)
+Sys = System._Bh()
+St = Star(Sys)
+Bh = BlackHole(Sys)
 
 
 def titles():
@@ -66,9 +65,9 @@ while True:
                 p_res = [False, False, False]
                 enrg -= rj
                 jump += 1
-                StSys = StarSystem()
-                St = Star(StSys)
-                Bh = BlackHole(StSys)
+                Sys = System()
+                St = Star(Sys)
+                Bh = BlackHole(Sys)
                 j1 = 'На прыжок было потрачено '
                 j2 = ' единиц энергии'
                 j3 = 'Теперь у вас '
@@ -95,12 +94,12 @@ while True:
                     print(f'{z}\nИсследуем систему...')
                     for i in tqdm(range(1000)):
                         time.sleep(0.01)
-                    StSys.examine_sys()
+                    Sys.examine_sys()
                     res = True
                     e_sys += 1
                     ach.e_sys(e_sys)
                     enrg -= 1000
-                    sys = StSys.get_ns('sys')
+                    sys = Sys.get_ns('sys')
                     zs1 = f'На исследование системы {sys} '
                     zs2 = 'было потрачено 1000 единиц энергии'
                     zs3 = f'Теперь у вас {enrg} единиц энергии'
@@ -278,7 +277,7 @@ while True:
                 en = int(en)
                 if St._multi_single_error(en)[0] is not True:
                     if res is True or p_res[en-1] is True:
-                        nst = StSys.get_ns(en)
+                        nst = Sys.get_ns(en)
                     elif res is False and p_res[en-1] is False:
                         nst = en
                     en1 = f'Зарядка солнечных батарей от звезды {nst} займет '

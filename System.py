@@ -10,23 +10,51 @@ import string
 
 sn = [0.15, 0.4, 0.15, 0.1, 0.1, 0.05, 0.05]
 pn = [0.65, 0.25, 0.1]
+z = '*' * 80
 
 
 def name_generator(size=6, chars=string.ascii_uppercase + string.digits):
     return ''.join(secrets.choice(chars) for _ in range(size))
 
 
-class StarSystem(object):
-    def __init__(self, s_p=sn, p_p=pn):
+class System(object):
+    def __init__(self, s_p=sn, p_p=pn, z=z):
         self.n = name_generator(size=6)
         self.n_1 = self.n+'_1'
         self.n_2 = self.n+'_2'
         self.n_3 = self.n+'_3'
-        self.z = '*' * 80
         self.s_var = ['St', 'St2', 'Bh', 'Bh2', 'St+Bh', 'St2+Bh', 'Bh2+St']
         self.s_ch = np.random.choice(self.s_var, p=s_p)
         self.p_var = ['Pl+As', 'Pl', 'As']
         self.p_ch = np.random.choice(self.p_var, p=p_p)
+
+    @classmethod
+    def _St(cls):
+        return cls(s_p=[1, 0, 0, 0, 0, 0, 0])
+
+    @classmethod
+    def _St2(cls):
+        return cls(s_p=[0, 1, 0, 0, 0, 0, 0])
+
+    @classmethod
+    def _Bh(cls):
+        return cls(s_p=[0, 0, 1, 0, 0, 0, 0])
+
+    @classmethod
+    def _Bh2(cls):
+        return cls(s_p=[0, 0, 0, 1, 0, 0, 0])
+
+    @classmethod
+    def _St_Bh(cls):
+        return cls(s_p=[0, 0, 0, 0, 1, 0, 0])
+
+    @classmethod
+    def _St2_Bh(cls):
+        return cls(s_p=[0, 0, 0, 0, 0, 1, 0])
+
+    @classmethod
+    def _Bh2_St(cls):
+        return cls(s_p=[0, 0, 0, 0, 0, 0, 1])
 
     def examine_sys(self):
         if self.s_ch == 'St':
@@ -54,24 +82,24 @@ class StarSystem(object):
         if self.s_ch == 'St' or self.s_ch == 'Bh':
             des_1 = 'Вы прибыли в систему '+self.n+':'
             des_2 = self.d1+self.n_1+self.d2
-            print(self.z)
+            print(z)
             print(des_1)
             print(des_2)
-            print(self.z)
+            print(z)
         elif self.s_ch == 'St2' or self.s_ch == 'Bh2' or self.s_ch == 'St+Bh':
             des_1 = 'Вы прибыли в систему '+self.n+':'
             des_2 = self.d1+self.n_1+', '+self.n_2+self.d2
-            print(self.z)
+            print(z)
             print(des_1)
             print(des_2)
-            print(self.z)
+            print(z)
         elif self.s_ch == 'St2+Bh' or self.s_ch == 'Bh2+St':
             des_1 = 'Вы прибыли в систему '+self.n+':'
             des_2 = self.d1+self.n_1+', '+self.n_2+', '+self.n_3+self.d2
-            print(self.z)
+            print(z)
             print(des_1)
             print(des_2)
-            print(self.z)
+            print(z)
 
     def get_ns(self, n):
         if n == 'sys':
