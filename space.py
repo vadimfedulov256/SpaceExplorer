@@ -18,9 +18,10 @@ enrg = 5000
 change_rj = True
 res = False
 p_res = [False, False, False]
+sp_res = [False, False, False]
 z = '*' * 80
 
-Sys = System._Bh()
+Sys = System()
 St = Star(Sys)
 Bh = BlackHole(Sys)
 
@@ -48,7 +49,7 @@ while True:
     if act.lower() == 'прыжок':
         j1 = f'Для прыжка потребуется {rj} единиц энергии'
         j2 = f'У вас {enrg} единиц энергии'
-        j3 = 'Вы действительно хотите совершить прыжок? Д/Н'
+        j3 = 'Вы действительно хотите совершить прыжок? Д(а)/Н'
         app = input(f'{z}\n{j1}\n{j2}\n{j3}\n{z}\n')
         if app.lower() == 'д' or app.lower() == 'да':
             if enrg < rj:
@@ -63,6 +64,7 @@ while True:
                 change_rj = True
                 res = False
                 p_res = [False, False, False]
+                sp_res = [False, False, False]
                 enrg -= rj
                 jump += 1
                 Sys = System()
@@ -83,7 +85,7 @@ while True:
         if react.lower() == 'систему':
             s1 = 'Для исследования системы потребуется 1000 единиц энергии'
             s2 = f'У вас {enrg} единиц энергии'
-            s3 = 'Вы действительно хотите исследовать систему? Д/Н'
+            s3 = 'Вы действительно хотите исследовать систему? Д(а)/Н'
             app = input(f'{z}\n{s1}\n{s2}\n{s3}\n{z}\n')
             if app.lower() == 'д' or app.lower() == 'да':
                 if enrg < 1000:
@@ -116,7 +118,7 @@ while True:
                 st2 = 'потребуется 250 единиц энергии'
                 st3 = f'У вас {enrg} единиц энергии'
                 st4 = f'Вы действительно хотите исследовать звезду {st}'
-                st5 = '? Д/Н'
+                st5 = '? Д(а)/Н'
                 app = input(f'{z}\n{st1}{st2}\n{st3}\n{st4}{st5}\n{z}\n')
                 if app.lower() == 'д' or app.lower() == 'да':
                     try:
@@ -131,7 +133,7 @@ while True:
                             print(f'{z}\n{att_st}...')
                             for i in tqdm(range(250)):
                                 time.sleep(0.01)
-                            st = int(st)
+                            st = int(st) # exception occures here
                             St.examine_st(st)
                             enrg -= 250
                             zst1 = f'На исследование звезды {st} '
@@ -139,7 +141,8 @@ while True:
                             zst3 = f'Теперь у вас {enrg} единиц энергии'
                             print(f'{zst1}{zst2}\n{zst3}\n{z}')
                             if St._multi_single_error(st)[0] is not True:
-                                p_res[st-1] = True # we do it only for stars
+                                p_res[st-1] = True # learn name (only for St)
+                                sp_res[st-1] = True # learn speed of charge
                                 e_st += 1
                                 ach.e_st(e_st)
                     except:
@@ -158,7 +161,7 @@ while True:
         elif react.lower() == 'звезды':
             sts1 = 'Для исследования звезд потребуется 500 единиц энергии'
             sts2 = f'У вас {enrg} единиц энергии'
-            sts3 = 'Вы действительно хотите исследовать звезды? Д/Н'
+            sts3 = 'Вы действительно хотите исследовать звезды? Д(а)/Н'
             app = input(f'{z}\n{sts1}\n{sts2}\n{sts3}\n{z}\n')
             if app.lower() == 'д' or app.lower() == 'да':
                 if enrg < 500:
@@ -177,8 +180,10 @@ while True:
                     zsts3 = f'Теперь у вас {enrg} единиц энергии'
                     print(f'{zsts1}{zsts2}\n{zsts3}\n{z}')
                     if St._multi_single_error('all')[1] is not True:
-                        p_res[0] = True
+                        p_res[0] = True # learn names (only for St)
                         p_res[1] = True
+                        sp_res[0] = True # learn speeds of charge
+                        sp_res[1] = True
                         e_sts += 1
                         ach.e_sts(e_sts)
             else:
@@ -193,7 +198,7 @@ while True:
                 bh2 = 'потребуется 250 единиц энергии'
                 bh3 = f'У вас {enrg} единиц энергии'
                 bh4 = f'Вы действительно хотите исследовать черную дыру {bh}'
-                bh5 = '? Д/Н'
+                bh5 = '? Д(а)/Н'
                 app = input(f'{z}\n{bh1}{bh2}\n{bh3}\n{bh4}{bh5}\n{z}\n')
                 if app.lower() == 'д' or app.lower() == 'да':
                     try:
@@ -208,7 +213,7 @@ while True:
                             print(f'{z}\n{att_bh}...')
                             for i in tqdm(range(250)):
                                 time.sleep(0.01)
-                            bh = int(bh)
+                            bh = int(bh) # exception occures here
                             Bh.examine_bh(bh)
                             enrg -= 250
                             zbh1 = f'На исследование черной дыры {bh} '
@@ -234,7 +239,7 @@ while True:
         elif react.lower() == 'черные дыры':
             bhs1 = 'Для исследования черных дыр потребуется 500 единиц энергии'
             bhs2 = f'У вас {enrg} единиц энергии'
-            bhs3 = 'Вы действительно хотите исследовать черные дыры? Д/Н'
+            bhs3 = 'Вы действительно хотите исследовать черные дыры? Д(а)/Н'
             app = input(f'{z}\n{bhs1}\n{bhs3}\n{z}\n')
             if app.lower() == 'д' or app.lower() == 'да':
                 if enrg < 500:
@@ -281,16 +286,16 @@ while True:
                     elif res is False and p_res[en-1] is False:
                         nst = en
                     en1 = f'Зарядка солнечных батарей от звезды {nst} займет '
-                    if p_res[en-1] is True:
+                    if sp_res[en-1] is True:
                         clt = f'{St._get_class_time(en)} секунд'
-                    elif p_res[en-1] is False:
+                    elif sp_res[en-1] is False:
                         clt = '[Неизвестно] секунд'
-                    en2 = 'Вы действительно хотите зарядиться? Д/Н'
+                    en2 = 'Вы действительно хотите зарядиться? Д(а)/Н'
                     repeat = input(f'{z}\n{en1}{clt}\n{en2}\n{z}\n')
                     if repeat.lower() == 'д' or repeat.lower() == 'да':
                         print(f'{z}\nЗаряжаемся от звезды {nst}...')
                         St.get_enrg(en)
-                        p_res[en-1] = True
+                        sp_res[en-1] = True # we will learn speed, but not name
                         if enrg + 1000 < 15000:
                             enrg += 1000
                             zen1 = 'Вы получили 1000 единиц энергии от звезды '
@@ -307,8 +312,8 @@ while True:
                     else:
                         print(f'Отмена зарядки...\n{z}')
                 else:
-                    St.help_st(h_en=True)
-            except:
+                    St.help_st(h_en=True) # we use _multi_single_error earlier
+            except:                       # to make game easier when recharge
                 if len(list(str(en))) == 1:
                     print(f'{z}\nВы ввели знак вместо номера\n{z}')
                 elif len(list(str(en))) > 1:
@@ -320,7 +325,7 @@ while True:
     elif act.lower() == 'помощь':
         eh1 = 'Список возможных комманд:'
         eh2 = '"Прыжок", "Исследовать", "Зарядиться", "Энергия"'
-        print(f'{z}\neh1\n{eh2}\n{z}')
+        print(f'{z}\n{eh1}\n{eh2}\n{z}')
 
     elif act.lower() == 'выход' or act.lower() == 'конец':
         titles()
