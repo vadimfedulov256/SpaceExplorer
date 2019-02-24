@@ -377,7 +377,7 @@ class Star(object):
             self.desc3 = f'И массу {self.m1} {self.form1}'
             print(f'{z}\n{self.desc1}\n{self.desc2}\n{self.desc3}\n{z}')
         elif self.s == 2 and n == 2:
-            self.gr2 = self.__multiple_form(self.t2 , form='t')
+            self.gr2 = self.__multiple_form(self.t2, form='t')
             self.form2 = self.__multiple_form(self.m2, form='m')
             self.desc4 = f'{self.nst2} - это звезда класса {self.cl_ch2}.'
             self.desc5 = f'Имеет температуру {self.t2} {self.gr2}'

@@ -71,17 +71,17 @@ class BlackHole(object):
 
     def _multi_single_error(self, n):
         if self.b is None:
-            return [True, True] # error for all forms
+            return [True, True]  # error for all forms
         elif self.b == 2 and n is 'all':
-            return [True, False] # error for single form
+            return [True, False]  # error for single form
         elif self.b == 1 and n != 1:
-            return [True, True] # error for all forms
+            return [True, True]  # error for all forms
         elif self.b == 2 and n != 1 and n != 2:
-            return [True, True] # error for all forms
+            return [True, True]  # error for all forms
         elif self.b == 1 or self.b == 2 and n == 1:
-            return [False, True] # error for multiple form
+            return [False, True]  # error for multiple form
         elif self.b == 2 and n == 2:
-            return [False, True] # error for multiple form
+            return [False, True]  # error for multiple form
 
     def help_bh(self):
         if self.b is None:

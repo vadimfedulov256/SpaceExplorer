@@ -130,7 +130,7 @@ while True:
                             print(f'{z}\n{att_st}...')
                             for i in tqdm(range(250)):
                                 time.sleep(0.01)
-                            s = int(s) # exception occures here
+                            s = int(s)  # exception occures here
                             St.examine_st(s)
                             enrg -= 250
                             zst1 = f'На исследование звезды {st} '
@@ -138,8 +138,8 @@ while True:
                             zst3 = f'Теперь у вас {enrg} единиц энергии'
                             print(f'{zst1}{zst2}\n{zst3}\n{z}')
                             if St._multi_single_error(s)[0] is not True:
-                                p_res[s-1] = True # learn name (only for St)
-                                sp_res[s-1] = True # learn speed of charge
+                                p_res[s-1] = True  # learn name (only for St)
+                                sp_res[s-1] = True  # learn speed of charge
                                 st += 1
                                 ach.st(st)
                     except:
@@ -177,9 +177,9 @@ while True:
                     zsts3 = f'Теперь у вас {enrg} единиц энергии'
                     print(f'{zsts1}{zsts2}\n{zsts3}\n{z}')
                     if St._multi_single_error('all')[1] is not True:
-                        p_res[0] = True # learn names (only for St)
+                        p_res[0] = True  # learn names (only for St)
                         p_res[1] = True
-                        sp_res[0] = True # learn speeds of charge
+                        sp_res[0] = True  # learn speeds of charge
                         sp_res[1] = True
                         sts += 1
                         ach.sts(sts)
@@ -210,7 +210,7 @@ while True:
                             print(f'{z}\n{att_bh}...')
                             for i in tqdm(range(250)):
                                 time.sleep(0.01)
-                            b = int(b) # exception occures here
+                            b = int(b)  # exception occures here
                             Bh.examine_bh(b)
                             enrg -= 250
                             zbh1 = f'На исследование черной дыры {bh} '
@@ -296,7 +296,7 @@ while True:
                     if app.lower() == 'д' or app.lower() == 'да':
                         print(f'{z}\nЗаряжаемся от звезды {nst}...')
                         St.get_enrg(en)
-                        sp_res[en-1] = True # we will learn speed, but not name
+                        sp_res[en-1] = True  # we will get speed, but not name
                         if enrg + 1000 < 15000:
                             enrg += 1000
                             zen1 = 'Вы получили 1000 единиц энергии от звезды '
@@ -313,8 +313,8 @@ while True:
                     else:
                         print(f'Отмена зарядки...\n{z}')
                 else:
-                    St.help_st(h_en=True) # we use _multi_single_error earlier
-            except:                       # to make game easier when recharge
+                    St.help_st(h_en=True)  # we use _multi_single_error earlier
+            except:                        # to make game easier when recharge
                 if len(list(str(en))) == 1:
                     print(f'{z}\nВы ввели знак вместо номера\n{z}')
                 elif len(list(str(en))) > 1:
