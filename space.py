@@ -1,82 +1,37 @@
 import string
 import random
 import time
-import os
 from tqdm import tqdm
 
 from System import System
 from BlackHole import BlackHole
 from Star import Star
 import achivements as ach
+import titles as end
 
-jump = 0
-e_sys = 0
-e_st = 0
-e_sts = 0
-e_bh = 0
-e_bhs = 0
-enrg = 5000
+j = 0
+sys = 0
+st = 0
+sts = 0
+bh = 0
+bhs = 0
+
+enrg = random.randint(30, 70) * 100
 change_rj = True
+
 res = False
 p_res = [False, False, False]
 sp_res = [False, False, False]
-z = '*' * 80
+
 hard = False
+
+z = '*' * 80
+
+tstart = time.time()
 
 Sys = System()
 St = Star(Sys)
 Bh = BlackHole(Sys)
-
-
-def titles():
-    tit1 = f'{z}\nБыла пройдена очередная веха в исследовании космоса\n{z}'
-    tit2 = 'Разработчик: Vadim Fedulov'
-    tit3 = 'Год 2019, v0.9, Python3.7.2'
-    tit4 = f'{z}\nОсобые благодарности: GLaDIS, Даше, Насте и Лесе\n{z}'
-    tit5 = f'Всего прыжков совершено: {jump}'
-    tit6 = f'Всего систем исследовано: {e_sys}'
-    tit7 = f'Всего звезд исследовано: {e_st}'
-    tit8 = f'Всего звезд исследовано совместно: {e_sts}'
-    tit9 = f'Всего черных дыр исследовано: {e_bh}'
-    tit10 = f'Всего черных дыр исследовано совместно: {e_bhs}'
-    print(tit1)
-    time.sleep(1)
-    print(tit2)
-    time.sleep(0.75)
-    print(tit3)
-    time.sleep(0.75)
-    print(tit4)
-    time.sleep(1)
-    print(tit5)
-    time.sleep(0.15)
-    print(tit6)
-    time.sleep(0.15)
-    print(tit7)
-    time.sleep(0.15)
-    print(tit8)
-    time.sleep(0.15)
-    print(tit9)
-    time.sleep(0.15)
-    print(tit10)
-    time.sleep(0.1)
-    ask = input(f'Записать ваши результаты в текстовый файл? Д(а)/Н: ')
-    if ask.lower() == 'д' or ask.lower() == 'да':
-        if not os.path.isfile('./results.txt'):
-            pass
-        else:
-            in1 = 'Файл с результатами уже существует'
-            in2 = 'Удалите его или он будет перезаписан'
-            in3 = 'Нажмите любую клавишу и введите, чтобы продолжить: '
-            reask = input(f'{in1}\n{in2}\n{in3}\n')
-        file = open('results.txt', 'w')
-        file.write(f'{tit5}\n')
-        file.write(f'{tit6}\n')
-        file.write(f'{tit7}\n')
-        file.write(f'{tit8}\n')
-        file.write(f'{tit9}\n')
-        file.write(f'{tit10}')
-        file.close()
-
 
 while True:
     if change_rj is True:
@@ -103,7 +58,7 @@ while True:
                 p_res = [False, False, False]
                 sp_res = [False, False, False]
                 enrg -= rj
-                jump += 1
+                j += 1
                 if hard is not True:
                     Sys = System()
                     St = Star(Sys)
@@ -117,7 +72,7 @@ while True:
                 j3 = 'Теперь у вас '
                 j4 = ' единиц энергии'
                 print(f'{j1}{rj}{j2}\n{j3}{enrg}{j4}\n{z}')
-                ach.jump(jump)
+                ach.j(j)
         else:
             print(f'Отмена прыжка...\n{z}')
 
@@ -125,23 +80,23 @@ while True:
         react = input('Что именно вы хотите исследовать: ')
 
         if react.lower() == 'систему':
-            s1 = 'Для исследования системы потребуется 1000 единиц энергии'
-            s2 = f'У вас {enrg} единиц энергии'
-            s3 = 'Вы действительно хотите исследовать систему? Д(а)/Н'
-            app = input(f'{z}\n{s1}\n{s2}\n{s3}\n{z}\n')
+            sys1 = 'Для исследования системы потребуется 1000 единиц энергии'
+            sys2 = f'У вас {enrg} единиц энергии'
+            sys3 = 'Вы действительно хотите исследовать систему? Д(а)/Н'
+            app = input(f'{z}\n{sys1}\n{sys2}\n{sys3}\n{z}\n')
             if app.lower() == 'д' or app.lower() == 'да':
                 if enrg < 1000:
-                    a = 'У вас недостаточно энергии для исследования системы'
-                    b = 'Попробуйте получить энергию от ближайшей звезды'
-                    print(f'{z}\n{a}\n{b}\n{z}')
+                    zs1 = 'У вас недостаточно энергии для исследования системы'
+                    zs2 = 'Попробуйте получить энергию от ближайшей звезды'
+                    print(f'{z}\n{zs1}\n{zs2}\n{z}')
                 else:
                     print(f'{z}\nИсследуем систему...')
                     for i in tqdm(range(1000)):
                         time.sleep(0.01)
                     Sys.examine_sys()
                     res = True
-                    e_sys += 1
-                    ach.e_sys(e_sys)
+                    sys += 1
+                    ach.sys(sys)
                     enrg -= 1000
                     sys = Sys.get_ns('sys')
                     zs1 = f'На исследование системы {sys} '
@@ -152,8 +107,8 @@ while True:
                 print(f'Отмена исследования системы...\n{z}')
 
         elif react.lower() == 'звезду':
-            st = input('Напишите номер звезды для исследования: ')
-            if st.lower() == 'помощь':
+            s = input('Напишите номер звезды для исследования: ')
+            if s.lower() == 'помощь':
                 St.help_st(h_en=False)
             else:
                 st1 = f'Для исследования звезды {st} '
@@ -165,28 +120,28 @@ while True:
                 if app.lower() == 'д' or app.lower() == 'да':
                     try:
                         if enrg < 250:
-                            a = 'У вас недостаточно энергии '
-                            b = 'для исследования звезды'
-                            c = 'Попробуйте получить энергию от '
-                            d = 'ближайшей звезды'
-                            print(f'{z}\n{a}{b}\n{c}{d}\n{z}')
+                            zst1 = 'У вас недостаточно энергии '
+                            zst2 = 'для исследования звезды'
+                            zst3 = 'Попробуйте получить энергию от '
+                            zst4 = 'ближайшей звезды'
+                            print(f'{z}\n{zst1}{zst2}\n{zst3}{zst4}\n{z}')
                         else:
                             att_st = f'Пытаемся исследовать звезду {st}'
                             print(f'{z}\n{att_st}...')
                             for i in tqdm(range(250)):
                                 time.sleep(0.01)
-                            st = int(st) # exception occures here
-                            St.examine_st(st)
+                            s = int(s) # exception occures here
+                            St.examine_st(s)
                             enrg -= 250
                             zst1 = f'На исследование звезды {st} '
                             zst2 = 'было потрачено 250 единиц энергии'
                             zst3 = f'Теперь у вас {enrg} единиц энергии'
                             print(f'{zst1}{zst2}\n{zst3}\n{z}')
-                            if St._multi_single_error(st)[0] is not True:
-                                p_res[st-1] = True # learn name (only for St)
-                                sp_res[st-1] = True # learn speed of charge
-                                e_st += 1
-                                ach.e_st(e_st)
+                            if St._multi_single_error(s)[0] is not True:
+                                p_res[s-1] = True # learn name (only for St)
+                                sp_res[s-1] = True # learn speed of charge
+                                st += 1
+                                ach.st(st)
                     except:
                         if len(list(st)) == 1:
                             print(f'{z}\nВы ввели знак вместо номера\n{z}')
@@ -207,10 +162,10 @@ while True:
             app = input(f'{z}\n{sts1}\n{sts2}\n{sts3}\n{z}\n')
             if app.lower() == 'д' or app.lower() == 'да':
                 if enrg < 500:
-                    a = 'У вас недостаточно энергии '
-                    b = 'для исследования звезд'
-                    c = 'Попробуйте получить энергию от ближайшей звезды'
-                    print(f'{z}\n{a}{b}\n{c}\n{z}')
+                    zsts1 = 'У вас недостаточно энергии '
+                    zsts2 = 'для исследования звезд'
+                    zsts3 = 'Попробуйте получить энергию от ближайшей звезды'
+                    print(f'{z}\n{zsts1}{zsts2}\n{zsts3}\n{z}')
                 else:
                     print(f'{z}\nПытаемся исследовать звезды...')
                     for i in tqdm(range(500)):
@@ -226,14 +181,14 @@ while True:
                         p_res[1] = True
                         sp_res[0] = True # learn speeds of charge
                         sp_res[1] = True
-                        e_sts += 1
-                        ach.e_sts(e_sts)
+                        sts += 1
+                        ach.sts(sts)
             else:
                 print(f'Отмена исследования звезд...\n{z}')
 
         elif react.lower() == 'черную дыру':
-            bh = input('Напишите номер черной дыры для исследования: ')
-            if bh.lower() == 'помощь':
+            b = input('Напишите номер черной дыры для исследования: ')
+            if b.lower() == 'помощь':
                 Bh.help_bh()
             else:
                 bh1 = f'Для исследования черной дыры {bh} '
@@ -245,30 +200,30 @@ while True:
                 if app.lower() == 'д' or app.lower() == 'да':
                     try:
                         if enrg < 250:
-                            a = 'У вас недостаточно энергии '
-                            b = 'для иследования черной дыры'
-                            c = 'Попробуйте получить энергию '
-                            d = 'от ближайшей звезды'
-                            print(f'{z}\n{a}{b}\n{c}{d}\n{z}')
+                            zbh1 = 'У вас недостаточно энергии '
+                            zbh2 = 'для иследования черной дыры'
+                            zbh3 = 'Попробуйте получить энергию '
+                            zbh4 = 'от ближайшей звезды'
+                            print(f'{z}\n{zbh1}{zbh2}\n{zbh3}{zbh4}\n{z}')
                         else:
                             att_bh = f'Пытаемся исследовать черную дыру {bh}'
                             print(f'{z}\n{att_bh}...')
                             for i in tqdm(range(250)):
                                 time.sleep(0.01)
-                            bh = int(bh) # exception occures here
-                            Bh.examine_bh(bh)
+                            b = int(b) # exception occures here
+                            Bh.examine_bh(b)
                             enrg -= 250
                             zbh1 = f'На исследование черной дыры {bh} '
                             zbh2 = 'было потрачено 250 единиц энергии'
                             zbh3 = f'Теперь у вас {enrg} единиц энергии'
                             print(f'{zbh1}{zbh2}\n{zbh3}\n{z}')
-                            if Bh._multi_single_error(bh)[0] is not True:
-                                e_bh += 1
-                                ach.e_bh(e_bh)
+                            if Bh._multi_single_error(b)[0] is not True:
+                                bh += 1
+                                ach.bh(bh)
                     except:
-                        if len(list(bh)) == 1:
+                        if len(list(b)) == 1:
                             print(f'{z}\nВы ввели знак вместо номера\n{z}')
-                        elif len(list(bh)) > 1:
+                        elif len(list(b)) > 1:
                             print(f'{z}\nВы ввели знаки вместо номера\n{z}')
                         enrg -= 250
                         er_bh1 = f'На исследование черной дыры {bh} '
@@ -285,10 +240,10 @@ while True:
             app = input(f'{z}\n{bhs1}\n{bhs3}\n{z}\n')
             if app.lower() == 'д' or app.lower() == 'да':
                 if enrg < 500:
-                    a = 'У вас недостаточно энергии '
-                    b = 'для исследования черных дыр'
-                    c = 'Попробуйте получить энергию от ближайшей звезды'
-                    print(f'{z}\n{a}{b}\n{c}\n{z}')
+                    zbhs1 = 'У вас недостаточно энергии '
+                    zbhs2 = 'для исследования черных дыр'
+                    zbhs3 = 'Попробуйте получить энергию от ближайшей звезды'
+                    print(f'{z}\n{zbhs1}{zbhs2}\n{zbhs3}\n{z}')
                 else:
                     print(f'{z}\nПытаемся исследовать черные дыры...')
                     for i in tqdm(range(500)):
@@ -300,8 +255,8 @@ while True:
                     zbhs3 = f'Теперь у вас {enrg} единиц энергии'
                     print(f'{zbhs1}{zbhs2}\n{zbhs3}\n{z}')
                     if Bh._multi_single_error('all')[1] is not True:
-                        e_bhs += 1
-                        ach.e_bhs(e_bhs)
+                        bhs += 1
+                        ach.bhs(bhs)
             else:
                 print(f'Отмена исследования черных дыр...\n{z}')
 
@@ -310,7 +265,11 @@ while True:
             h2 = '"Систему", "Звезду", "Звезды", "Черную дыру", "Черные дыры"'
             print(f'{z}\n{h1}\n{h2}\n{z}')
         elif react.lower() == 'выход' or react.lower() == 'конец':
-            titles()
+            tend = time.time()
+            if hard is True:
+                end.titles(hard, tstart, tend, j, sys, st, sts, bh, bhs, hj)
+            elif hard is False:
+                end.titles(hard, tstart, tend, j, sys, st, sts, bh, bhs)
             break
         else:
             print('Непонятен объект исследования, попробуйте еще раз')
@@ -371,10 +330,15 @@ while True:
 
     elif act == 'CRAZYMEGAHELL':
         hard = True
-        print(f'{z}\nОООООО МОЯЯЯ ОБОРОНААААА!!! HARD ВКЛЮЧЕН ;_)\n{z}')
+        hj = j
+        print(f'{z}\nОООООО МОЯЯЯ ОБОРОООНААААА!!! HARD ВКЛЮЧЕН ;_)\n{z}')
 
     elif act.lower() == 'выход' or act.lower() == 'конец':
-        titles()
+        tend = time.time()
+        if hard is True:
+            end.titles(hard, tstart, tend, j, sys, st, sts, bh, bhs, hj)
+        elif hard is False:
+            end.titles(hard, tstart, tend, j, sys, st, sts, bh, bhs)
         break
 
     else:

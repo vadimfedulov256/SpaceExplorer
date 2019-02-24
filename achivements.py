@@ -1,180 +1,180 @@
 z = '*' * 80
 
 
-def jump(jump):
+def j(j):
     ach_ = 'Вы получили достижение: '
-    if jump == 10:
+    if j == 10:
         ach = 'Начинающий путешественник (совершить 10 прыжков)'
         print(f'{ach_}\n{ach}\n{z}')
-    elif jump == 100:
+    elif j == 100:
         ach = 'Набирающий опыт (совершить 100 прыжков)'
         print(f'{ach_}\n{ach}\n{z}')
-    elif jump == 250:
+    elif j == 250:
         ach = 'Умелый (совершить 250 прыжков)'
         print(f'{ach_}\n{ach}\n{z}')
-    elif jump == 500:
+    elif j == 500:
         ach = 'Бывалый (совершить 500 прыжков)'
         print(f'{ach_}\n{ach}\n{z}')
-    elif jump == 750:
+    elif j == 750:
         ach = 'Опытный (совершить 750 прыжков)'
         print(f'{ach_}\n{ach}\n{z}')
-    elif jump == 1000:
+    elif j == 1000:
         ach = 'Неутомимый (совершить 1000 прыжков)'
         print(f'{ach_}\n{ach}\n{z}')
 
 
-def e_sys(e_sys):
+def sys(sys):
     ach_ = 'Вы получили достижение: '
-    if e_sys == 10:
+    if sys == 10:
         ach = 'Начинающий исследователь (совершить 10 исследований систем)'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_sys == 100:
+    elif sys == 100:
         ach = 'Любопытный (совершить 100 исследований систем)'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_sys == 250:
+    elif sys == 250:
         ach = 'Ищущий знаний (совершить 250 исследований систем)'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_sys == 500:
+    elif sys == 500:
         ach = 'Первооткрыватель (совершить 500 исследований систем)'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_sys == 750:
+    elif sys == 750:
         ach = 'Ученый (совершить 750 исследований систем)'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_sys == 1000:
+    elif sys == 1000:
         ach = 'Профессионал (совершить 1000 исследований систем)'
         print(f'{ach_}\n{ach}\n{z}')
 
 
-def e_st(e_st):
+def st(st):
     ach_ = 'Вы получили достижение: '
-    if e_st == 10:
+    if st == 10:
         ach1 = 'Внимательный звездочет'
         ach2 = ' (совершить 10 исследований звезд)'
         ach = f'{ach1}{ach2}'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_st == 100:
+    elif st == 100:
         ach1 = 'Отдельно, отдельно и еще раз отдельно'
         ach2 = ' (совершить 100 исследований звезд)'
         ach = f'{ach1}{ach2}'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_st == 250:
+    elif st == 250:
         ach1 = 'Звезды от плевел'
         ach2 = ' (совершить 250 исследований звезд)'
         ach = f'{ach1}{ach2}'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_st == 500:
+    elif st == 500:
         ach1 = 'Перепись звезд'
         ach2 = ' (совершить 500 исследований звезд)'
         ach = f'{ach1}{ach2}'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_st == 750:
+    elif st == 750:
         ach1 = 'Звезда за звездой'
         ach2 = ' (совершить 750 исследований звезд)'
         ach = f'{ach1}{ach2}'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_st == 1000:
+    elif st == 1000:
         ach1 = 'Каждая звезда требует внимания'
         ach2 = ' (совершить 1000 исследований звезд)'
         ach = f'{ach1}{ach2}'
         print(f'{ach_}\n{ach}\n{z}')
 
 
-def e_sts(e_sts):
+def sts(sts):
     ach_ = 'Вы получили достижение: '
-    if e_sts == 10:
+    if sts == 10:
         ach1 = 'Между двух огней'
         ach2 = ' (совершить 10 совместных исследований звезд)'
         ach = f'{ach1}{ach2}'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_sts == 100:
+    elif sts == 100:
         ach1 = 'Собираем статистику'
         ach2 = ' (совершить 100 совместных исследований звезд)'
         ach = f'{ach1}{ach2}'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_sts == 250:
+    elif sts == 250:
         ach1 = 'Их много, а я один'
         ach2 = ' (совершить 250 совместных исследований звезд)'
         ach = f'{ach1}{ach2}'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_sts == 500:
+    elif sts == 500:
         ach1 = 'Звездоход'
         ach2 = ' (совершить 500 совместных исследований звезд)'
         ach = f'{ach1}{ach2}'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_sts == 750:
+    elif sts == 750:
         ach1 = 'Круговорот звезд в природе'
         ach2 = ' (совершить 750 совместных исследований звезд)'
         ach = f'{ach1}{ach2}'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_sts == 1000:
+    elif sts == 1000:
         ach1 = 'Звездная пыль на крыле'
         ach2 = ' (совершить 1000 совместных исследований звезд)'
         ach = f'{ach1}{ach2}'
         print(f'{ach_}\n{ach}\n{z}')
 
 
-def e_bh(e_bh):
+def bh(bh):
     ach_ = 'Вы получили достижение: '
-    if e_bh == 10:
+    if bh == 10:
         ach1 = 'Не подбирайся слишком близко'
         ach2 = ' (совершить 10 исследований черных дыр)'
         ach = f'{ach1}{ach2}'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_bh == 100:
+    elif bh == 100:
         ach1 = 'Сингулярность внутри, время снаружи'
         ach2 = ' (совершить 100 исследований черных дыр)'
         ach = f'{ach1}{ach2}'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_bh == 250:
+    elif bh == 250:
         ach1 = 'Темным темно'
         ach2 = ' (совершить 250 исследований черных дыр)'
         ach = f'{ach1}{ach2}'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_bh == 500:
+    elif bh == 500:
         ach1 = 'Темнее черного'
         ach2 = ' (совершить 500 исследований черных дыр)'
         ach = f'{ach1}{ach2}'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_bh == 750:
+    elif bh == 750:
         ach1 = 'Черный, темнее и еще темнее'
         ach2 = ' (совершить 750 исследований черных дыр)'
         ach = f'{ach1}{ach2}'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_bh == 1000:
+    elif bh == 1000:
         ach1 = '50 оттенков черного'
         ach2 = ' (совершить 1000 исследований черных дыр)'
         ach = f'{ach1}{ach2}'
         print(f'{ach_}\n{ach}\n{z}')
 
 
-def e_bhs(e_bhs):
+def bhs(bhs):
     ach_ = 'Вы получили достижение: '
-    if e_bhs == 10:
+    if bhs == 10:
         ach1 = 'Наследие большого взрыва'
         ach2 = ' (совершить 10 совместных исследований черных дыр)'
         ach = f'{ach1}{ach2}'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_bhs == 100:
+    elif bhs == 100:
         ach1 = 'Сингулярность в квадрате'
         ach2 = ' (совершить 100 совместных исследований черных дыр)'
         ach = f'{ach1}{ach2}'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_bhs == 250:
+    elif bhs == 250:
         ach1 = 'Темные светила'
         ach2 = ' (совершить 250 совместных исследований черных дыр)'
         ach = f'{ach1}{ach2}'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_bhs == 500:
+    elif bhs == 500:
         ach1 = 'Теория "Ничего"'
         ach2 = ' (совершить 500 совместных исследований черных дыр)'
         ach = f'{ach1}{ach2}'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_bhs == 750:
+    elif bhs == 750:
         ach1 = 'Бесконечности в струнах'
         ach2 = ' (совершить 750 совместных исследований черных дыр)'
         ach = f'{ach1}{ach2}'
         print(f'{ach_}\n{ach}\n{z}')
-    elif e_bhs == 1000:
+    elif bhs == 1000:
         ach1 = 'Конец и начало'
         ach2 = ' (совершить 1000 совместных исследований черных дыр)'
         ach = f'{ach1}{ach2}'
