@@ -11,6 +11,9 @@ sn = [0.15, 0.4, 0.15, 0.1, 0.1, 0.05, 0.05]
 pn = [0.65, 0.25, 0.1]
 z = '*' * 80
 
+if __name__ == "__main__":
+    print(f'{z}\nВы должны открыть game.py, это всего лишь модуль!\n{z}')
+
 
 def name_generator(size, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for char in range(size))

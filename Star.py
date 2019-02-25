@@ -9,6 +9,9 @@ m2_sn = [0.15, 0.2, 0.25, 0.3, 0.1]
 m3_sn = [0.05, 0.05, 0.1, 0.1, 0.7]
 z = '*' * 80
 
+if __name__ == "__main__":
+    print(f'{z}\nВы должны открыть game.py, это всего лишь модуль!\n{z}')
+
 
 class Star(object):
     def __init__(self, Sys, clp=cl_sn, m1p=m1_sn, m2p=m2_sn, m3p=m3_sn, z=z):

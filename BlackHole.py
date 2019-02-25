@@ -4,6 +4,9 @@ import random
 cl_bn = [0.5, 0.25, 0.2, 0.05]
 z = '*' * 80
 
+if __name__ == "__main__":
+    print(f'{z}\nВы должны открыть game.py, это всего лишь модуль!\n{z}')
+
 
 class BlackHole(object):
     def __init__(self, Sys, clp=cl_bn, z=z):

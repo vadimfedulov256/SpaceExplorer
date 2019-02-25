@@ -27,6 +27,9 @@ hard = False
 
 z = '*' * 80
 
+if __name__ == "__main__":
+    print(f'{z}\nДобро пожаловать в SpaceExplorer v1.05\n{z}')
+
 start = time.time()
 
 Sys = System()
@@ -265,11 +268,10 @@ while True:
             h2 = '"Систему", "Звезду", "Звезды", "Черную дыру", "Черные дыры"'
             print(f'{z}\n{h1}\n{h2}\n{z}')
         elif react.lower() == 'выход' or react.lower() == 'конец':
-            end = time.time()
             if hard is True:
-                tit.titles(hard, start, end, cj, csys, cst, csts, cbh, cbhs, h)
+                tit.titles(hard, start, cj, csys, cst, csts, cbh, cbhs, hj)
             elif hard is False:
-                tit.titles(hard, start, end, cj, csys, cst, csts, cbh, cbhs)
+                tit.titles(hard, start, cj, csys, cst, csts, cbh, cbhs)
             break
         else:
             print('Непонятен объект исследования, попробуйте еще раз')
@@ -330,15 +332,14 @@ while True:
 
     elif act == 'CRAZYMEGAHELL':
         hard = True
-        h = cj
+        hj = cj
         print(f'{z}\nОООООО МОЯЯЯ ОБОРОООНААААА!!! HARD ВКЛЮЧЕН ;_)\n{z}')
 
     elif act.lower() == 'выход' or act.lower() == 'конец':
-        end = time.time()
         if hard is True:
-            tit.titles(hard, start, end, cj, csys, cst, csts, cbh, cbhs, h)
+            tit.titles(hard, start, cj, csys, cst, csts, cbh, cbhs, hj)
         elif hard is False:
-            tit.titles(hard, start, end, cj, csys, cst, csts, cbh, cbhs)
+            tit.titles(hard, start, cj, csys, cst, csts, cbh, cbhs)
         break
 
     else:
