@@ -17,7 +17,7 @@ def name_generator(size, chars=string.ascii_uppercase + string.digits):
 
 
 class System(object):
-    def __init__(self, s_p=sn, p_p=pn, z=z, size=6):
+    def __init__(self, s_p=sn, p_p=pn, z=z, size=4):
         self.n = name_generator(size)
         self.n1 = self.n+'_1'
         self.n2 = self.n+'_2'
@@ -29,7 +29,7 @@ class System(object):
 
     @classmethod
     def hard(cls):
-        return cls(s_p=[0.05, 0.2, 0.25, 0.15, 0.1, 0.05, 0.05], size=8)
+        return cls(s_p=[0.05, 0.2, 0.25, 0.15, 0.1, 0.05, 0.05], size=5)
 
     def examine_sys(self):
         if self.s_ch == 'St':
@@ -43,7 +43,7 @@ class System(object):
         elif self.s_ch == 'St+Bh':
             self.e1 = 'Вы видите звезду и черную дыру'
         elif self.s_ch == 'St2+Bh':
-            self.e1 = 'Вы видите две звезды с черную дыру'
+            self.e1 = 'Вы видите две звезды и черную дыру'
         elif self.s_ch == 'Bh2+St':
             self.e1 = 'Вы видите две черных дыры и звезду'
 

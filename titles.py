@@ -5,23 +5,23 @@ import os
 z = '*' * 80
 
 
-def titles(hard, start, end, j, sys, st, sts, bh, bhs, hj=False):
+def titles(hard, start, end, j, csys, cst, csts, cbh, cbhs, h=False):
     end = time.time()
     tit1 = f'{z}\nБыла пройдена очередная веха в исследовании космоса\n{z}'
     tit2 = 'Разработчик: Vadim Fedulov'
-    tit3 = 'Год 2019, v1.0, Python3.7.2'
+    tit3 = 'Год 2019, v1.0 (fix), Python3.7.2'
     tit4 = f'{z}\nОсобые благодарности: GLaDIS, Даше, Насте и Лесе\n{z}'
     if hard is True:
-        res1 = f'Уровень сложности: Hard (с прыжка {hj})'
+        res1 = f'Уровень сложности: Hard (с прыжка {h})'
     elif hard is False:
-        res1 = 'Уровень сложности: Нормальный'
+        res1 = 'Уровень сложности: Normal'
     res2 = f'Всего {np.round((end-start)/60, decimals=2)} минут в игре'
     res3 = f'Всего прыжков совершено: {j}'
-    res4 = f'Всего систем исследовано: {sys}'
-    res5 = f'Всего звезд исследовано: {st}'
-    res6 = f'Всего звезд исследовано совместно: {sts}'
-    res7 = f'Всего черных дыр исследовано: {bh}'
-    res8 = f'Всего черных дыр исследовано совместно: {bhs}'
+    res4 = f'Всего систем исследовано: {csys}'
+    res5 = f'Всего звезд исследовано: {cst}'
+    res6 = f'Всего звезд исследовано совместно: {csts}'
+    res7 = f'Всего черных дыр исследовано: {cbh}'
+    res8 = f'Всего черных дыр исследовано совместно: {cbhs}'
     print(tit1)
     time.sleep(0.75)
     print(tit2)

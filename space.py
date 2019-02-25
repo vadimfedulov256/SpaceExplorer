@@ -7,16 +7,16 @@ from System import System
 from BlackHole import BlackHole
 from Star import Star
 import achivements as ach
-import titles as end
+import titles as tit
 
-j = 0
-sys = 0
-st = 0
-sts = 0
-bh = 0
-bhs = 0
+cj = 0
+csys = 0
+cst = 0
+csts = 0
+cbh = 0
+cbhs = 0
 
-enrg = random.randint(30, 70) * 100
+enrg = random.randint(50, 70) * 100
 change_rj = True
 
 res = False
@@ -27,7 +27,7 @@ hard = False
 
 z = '*' * 80
 
-tstart = time.time()
+start = time.time()
 
 Sys = System()
 St = Star(Sys)
@@ -58,21 +58,21 @@ while True:
                 p_res = [False, False, False]
                 sp_res = [False, False, False]
                 enrg -= rj
-                j += 1
+                cj += 1
                 if hard is not True:
                     Sys = System()
                     St = Star(Sys)
                     Bh = BlackHole(Sys)
                 else:
                     Sys = System.hard()
-                    St = Star.hard(Sys)
-                    Bh = BlackHole.hard(Sys)
+                    St = Star(Sys)
+                    Bh = BlackHole(Sys)
                 j1 = 'На прыжок было потрачено '
                 j2 = ' единиц энергии'
                 j3 = 'Теперь у вас '
                 j4 = ' единиц энергии'
                 print(f'{j1}{rj}{j2}\n{j3}{enrg}{j4}\n{z}')
-                ach.j(j)
+                ach.j(cj)
         else:
             print(f'Отмена прыжка...\n{z}')
 
@@ -95,8 +95,8 @@ while True:
                         time.sleep(0.01)
                     Sys.examine_sys()
                     res = True
-                    sys += 1
-                    ach.sys(sys)
+                    csys += 1
+                    ach.sys(csys)
                     enrg -= 1000
                     sys = Sys.get_ns('sys')
                     zs1 = f'На исследование системы {sys} '
@@ -107,8 +107,8 @@ while True:
                 print(f'Отмена исследования системы...\n{z}')
 
         elif react.lower() == 'звезду':
-            s = input('Напишите номер звезды для исследования: ')
-            if s.lower() == 'помощь':
+            st = input('Напишите номер звезды для исследования: ')
+            if st.lower() == 'помощь':
                 St.help_st(h_en=False)
             else:
                 st1 = f'Для исследования звезды {st} '
@@ -130,18 +130,18 @@ while True:
                             print(f'{z}\n{att_st}...')
                             for i in tqdm(range(250)):
                                 time.sleep(0.01)
-                            s = int(s)  # exception occures here
-                            St.examine_st(s)
+                            st = int(st)  # exception occures here
+                            St.examine_st(st)
                             enrg -= 250
                             zst1 = f'На исследование звезды {st} '
                             zst2 = 'было потрачено 250 единиц энергии'
                             zst3 = f'Теперь у вас {enrg} единиц энергии'
                             print(f'{zst1}{zst2}\n{zst3}\n{z}')
-                            if St._multi_single_error(s)[0] is not True:
-                                p_res[s-1] = True  # learn name (only for St)
-                                sp_res[s-1] = True  # learn speed of charge
-                                st += 1
-                                ach.st(st)
+                            if St._multi_single_error(st)[0] is not True:
+                                p_res[st-1] = True  # learn name (only for St)
+                                sp_res[st-1] = True  # learn speed of charge
+                                cst += 1
+                                ach.st(cst)
                     except:
                         if len(list(st)) == 1:
                             print(f'{z}\nВы ввели знак вместо номера\n{z}')
@@ -181,14 +181,14 @@ while True:
                         p_res[1] = True
                         sp_res[0] = True  # learn speeds of charge
                         sp_res[1] = True
-                        sts += 1
-                        ach.sts(sts)
+                        csts += 1
+                        ach.sts(csts)
             else:
                 print(f'Отмена исследования звезд...\n{z}')
 
         elif react.lower() == 'черную дыру':
-            b = input('Напишите номер черной дыры для исследования: ')
-            if b.lower() == 'помощь':
+            bh = input('Напишите номер черной дыры для исследования: ')
+            if bh.lower() == 'помощь':
                 Bh.help_bh()
             else:
                 bh1 = f'Для исследования черной дыры {bh} '
@@ -210,20 +210,20 @@ while True:
                             print(f'{z}\n{att_bh}...')
                             for i in tqdm(range(250)):
                                 time.sleep(0.01)
-                            b = int(b)  # exception occures here
-                            Bh.examine_bh(b)
+                            bh = int(bh)  # exception occures here
+                            Bh.examine_bh(bh)
                             enrg -= 250
                             zbh1 = f'На исследование черной дыры {bh} '
                             zbh2 = 'было потрачено 250 единиц энергии'
                             zbh3 = f'Теперь у вас {enrg} единиц энергии'
                             print(f'{zbh1}{zbh2}\n{zbh3}\n{z}')
-                            if Bh._multi_single_error(b)[0] is not True:
-                                bh += 1
-                                ach.bh(bh)
+                            if Bh._multi_single_error(bh)[0] is not True:
+                                cbh += 1
+                                ach.bh(cbh)
                     except:
-                        if len(list(b)) == 1:
+                        if len(list(bh)) == 1:
                             print(f'{z}\nВы ввели знак вместо номера\n{z}')
-                        elif len(list(b)) > 1:
+                        elif len(list(bh)) > 1:
                             print(f'{z}\nВы ввели знаки вместо номера\n{z}')
                         enrg -= 250
                         er_bh1 = f'На исследование черной дыры {bh} '
@@ -255,8 +255,8 @@ while True:
                     zbhs3 = f'Теперь у вас {enrg} единиц энергии'
                     print(f'{zbhs1}{zbhs2}\n{zbhs3}\n{z}')
                     if Bh._multi_single_error('all')[1] is not True:
-                        bhs += 1
-                        ach.bhs(bhs)
+                        cbhs += 1
+                        ach.bhs(cbhs)
             else:
                 print(f'Отмена исследования черных дыр...\n{z}')
 
@@ -265,11 +265,11 @@ while True:
             h2 = '"Систему", "Звезду", "Звезды", "Черную дыру", "Черные дыры"'
             print(f'{z}\n{h1}\n{h2}\n{z}')
         elif react.lower() == 'выход' or react.lower() == 'конец':
-            tend = time.time()
+            end = time.time()
             if hard is True:
-                end.titles(hard, tstart, tend, j, sys, st, sts, bh, bhs, hj)
+                tit.titles(hard, start, end, cj, csys, cst, csts, cbh, cbhs, h)
             elif hard is False:
-                end.titles(hard, tstart, tend, j, sys, st, sts, bh, bhs)
+                tit.titles(hard, start, end, cj, csys, cst, csts, cbh, cbhs)
             break
         else:
             print('Непонятен объект исследования, попробуйте еще раз')
@@ -330,15 +330,15 @@ while True:
 
     elif act == 'CRAZYMEGAHELL':
         hard = True
-        hj = j
+        h = cj
         print(f'{z}\nОООООО МОЯЯЯ ОБОРОООНААААА!!! HARD ВКЛЮЧЕН ;_)\n{z}')
 
     elif act.lower() == 'выход' or act.lower() == 'конец':
-        tend = time.time()
+        end = time.time()
         if hard is True:
-            end.titles(hard, tstart, tend, j, sys, st, sts, bh, bhs, hj)
+            tit.titles(hard, start, end, cj, csys, cst, csts, cbh, cbhs, h)
         elif hard is False:
-            end.titles(hard, tstart, tend, j, sys, st, sts, bh, bhs)
+            tit.titles(hard, start, end, cj, csys, cst, csts, cbh, cbhs)
         break
 
     else:

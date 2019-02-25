@@ -361,7 +361,7 @@ class Star(object):
             self.desc4 = f'{self.nst2} - это звезда класса {self.cl_ch2}.'
             self.desc5 = f'Имеет температуру {self.t2} {self.gr2}'
             self.desc6 = f'И массу {self.m2} {self.form2}'
-            print(f'{self.desc1}\n{self.desc2}\n{self.desc3}\n{z}')
+            print(f'{self.desc4}\n{self.desc5}\n{self.desc6}\n{z}')
         elif self.s == 1 and n == 'all':
             self.ex_err = 'В данной системе находится только одна звезда'
             print(f'{z}\n{self.ex_err}\n{z}')
@@ -382,3 +382,4 @@ class Star(object):
             self.desc4 = f'{self.nst2} - это звезда класса {self.cl_ch2}.'
             self.desc5 = f'Имеет температуру {self.t2} {self.gr2}'
             self.desc6 = f'И массу {self.m2} {self.form2}'
+            print(f'{z}\n{self.desc4}\n{self.desc5}\n{self.desc6}\n{z}')
