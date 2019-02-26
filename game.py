@@ -38,7 +38,7 @@ Bh = BlackHole(Sys)
 
 while True:
     if change_rj is True:
-        rj = random.randint(30, 100) * 100
+        rj = random.randint(30, 80) * 100
     change_rj = False
     act = input('Напишите ваше действие: ')
     if act.lower() == 'прыжок':

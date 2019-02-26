@@ -19,7 +19,7 @@ def titles(hard, start, cj, csys, cst, csts, cbh, cbhs, hj=None):
     elif hard is False:
         res1 = 'Уровень сложности: Normal'
     mins = np.round((end-start)/60, decimals=2)
-    if int(str(mins)[-3]) == 1 or mins <= 1:
+    if mins <= 1:
         minutes = 'минуты'
     else:
         minutes = 'минут'

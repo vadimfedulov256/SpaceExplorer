@@ -197,28 +197,21 @@ class Star(object):
 
     def __multiple_form(self, n, form):
         if form == 't':
-            if int(str(n)[-1]) == 0:
+            lsymbol = int(str(n)[-1])
+            if lsymbol == 0:
                 return 'градусов Цельсия'
-            elif int(str(n)[-1]) == 1:
+            elif lsymbol == 1:
                 return 'градус Цельсия'
-            elif int(str(n)[-1]) == 2:
+            elif lsymbol == 2:
                 return 'градуса Цельсия'
-            elif int(str(n)[-1]) == 3:
+            elif lsymbol == 3:
                 return 'градуса Цельсия'
-            elif int(str(n)[-1]) == 4:
+            elif lsymbol == 4:
                 return 'градуса Цельсия'
-            elif int(str(n)[-1]) == 5:
-                return 'градусов Цельсия'
-            elif int(str(n)[-1]) == 6:
-                return 'градусов Цельсия'
-            elif int(str(n)[-1]) == 7:
-                return 'градусов Цельсия'
-            elif int(str(n)[-1]) == 8:
-                return 'градусов Цельсия'
-            elif int(str(n)[-1]) == 9:
+            else:
                 return 'градусов Цельсия'
         elif form == 'm':
-            if int(str(n)[-1]) == 1:
+            if n <= 1:
                 return 'солнечной единицы'
             else:
                 return 'солнечных единиц'

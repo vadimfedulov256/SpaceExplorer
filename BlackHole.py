@@ -67,7 +67,7 @@ class BlackHole(object):
         print(f'{z}\n{self.err}\n{z}')
 
     def __multiple_form(self, n):
-        if int(str(n)[-1]) == 1:
+        if n <= 1:
             return 'солнечной единицы'
         else:
             return 'солнечных единиц'
