@@ -1,6 +1,7 @@
 import string
 import random
 import time
+
 from tqdm import tqdm
 
 from System import System
@@ -8,6 +9,7 @@ from BlackHole import BlackHole
 from Star import Star
 import achivements as ach
 import titles as tit
+from z import change_z
 
 cj = 0
 csys = 0
@@ -17,7 +19,7 @@ cbh = 0
 cbhs = 0
 
 enrg = random.randint(50, 70) * 100
-change_rj = True
+change_nj = True
 
 res = False
 p_res = [False, False, False]
@@ -25,10 +27,19 @@ sp_res = [False, False, False]
 
 hard = False
 
-z = '*' * 80
+z = change_z(enrg)
 
 if __name__ == "__main__":
-    print(f'{z}\nДобро пожаловать в SpaceExplorer v1.05\n{z}')
+    print(f'{z}\nДобро пожаловать в')
+    print('     _   __                      __   _____                      ')
+    print('    / | / /__  __  ___________ _/ /  / ___/____  ____ _________  ')
+    print('   /  |/ / _ \/ / / / ___/ __ `/ /   \__ \/ __ \/ __ `/ ___/ _ \ ')
+    print('  / /|  /  __/ /_/ / /  / /_/ / /   ___/ / /_/ / /_/ / /__/  __/ ')
+    print(' /_/ |_/\___/\__,_/_/   \__,_/_/   /____/ .___/\__,_/\___/\___/  ')
+    print('                                       /_/                       ')
+    print('                                                            v1.1 ')
+    print(z)
+
 
 start = time.time()
 
@@ -37,30 +48,31 @@ St = Star(Sys)
 Bh = BlackHole(Sys)
 
 while True:
-    if change_rj is True:
-        rj = random.randint(30, 80) * 100
-    change_rj = False
+    if change_nj is True:
+        nj = random.randint(30, 80) * 100
+    change_nj = False
     act = input('Напишите ваше действие: ')
     if act.lower() == 'прыжок':
-        j1 = f'Для прыжка потребуется {rj} единиц энергии'
+        j1 = f'Для прыжка потребуется {nj} единиц энергии'
         j2 = f'У вас {enrg} единиц энергии'
         j3 = 'Вы действительно хотите совершить прыжок? Д(а)/Н'
         app = input(f'{z}\n{j1}\n{j2}\n{j3}\n{z}\n')
         if app.lower() == 'д' or app.lower() == 'да':
-            if enrg < rj:
+            if enrg < nj:
                 a = 'У вас недостаточно энергии для совершения прыжка'
                 b = 'Попробуйте получить энергию от ближайшей звезды'
                 print(f'{z}\n{a}\n{b}\n{z}')
             else:
                 print(f'{z}\nПрыжок в процессе...')
-                for i in tqdm(range(rj)):
+                for i in tqdm(range(nj)):
                     time.sleep(0.01)
+                enrg -= nj
+                z = change_z(enrg)
                 print(f'{z}\nВы совершили прыжок в другую систему\n{z}')
-                change_rj = True
+                change_nj = True
                 res = False
                 p_res = [False, False, False]
                 sp_res = [False, False, False]
-                enrg -= rj
                 cj += 1
                 if hard is not True:
                     Sys = System()
@@ -70,11 +82,9 @@ while True:
                     Sys = System.hard()
                     St = Star(Sys)
                     Bh = BlackHole(Sys)
-                j1 = 'На прыжок было потрачено '
-                j2 = ' единиц энергии'
-                j3 = 'Теперь у вас '
-                j4 = ' единиц энергии'
-                print(f'{j1}{rj}{j2}\n{j3}{enrg}{j4}\n{z}')
+                j1 = f'На прыжок было потрачено {nj} единиц энергии'
+                j2 = f'Теперь у вас {enrg} единиц энергии'
+                print(f'{j1}\n{j2}\n{z}')
                 ach.j(cj)
         else:
             print(f'Отмена прыжка...\n{z}')
@@ -96,11 +106,12 @@ while True:
                     print(f'{z}\nИсследуем систему...')
                     for i in tqdm(range(1000)):
                         time.sleep(0.01)
-                    Sys.examine_sys()
+                    enrg -= 1000
+                    z = change_z(enrg)
+                    Sys.examine_sys(z)
                     res = True
                     csys += 1
                     ach.sys(csys)
-                    enrg -= 1000
                     sys = Sys.get_ns('sys')
                     zs1 = f'На исследование системы {sys} '
                     zs2 = 'было потрачено 1000 единиц энергии'
@@ -133,9 +144,10 @@ while True:
                             print(f'{z}\n{att_st}...')
                             for i in tqdm(range(250)):
                                 time.sleep(0.01)
-                            st = int(st)  # exception occures here
-                            St.examine_st(st)
                             enrg -= 250
+                            z = change_z(enrg)
+                            st = int(st)  # exception occures here
+                            St.examine_st(z, st)
                             zst1 = f'На исследование звезды {st} '
                             zst2 = 'было потрачено 250 единиц энергии'
                             zst3 = f'Теперь у вас {enrg} единиц энергии'
@@ -150,7 +162,6 @@ while True:
                             print(f'{z}\nВы ввели знак вместо номера\n{z}')
                         elif len(list(st)) > 1:
                             print(f'{z}\nВы ввели знаки вместо номера\n{z}')
-                        enrg -= 250
                         er_st1 = f'На исследование звезды {st} '
                         er_st2 = 'было потрачено 250 единиц энергии'
                         er_st3 = f'Теперь у вас {enrg} единиц энергии'
@@ -173,8 +184,9 @@ while True:
                     print(f'{z}\nПытаемся исследовать звезды...')
                     for i in tqdm(range(500)):
                         time.sleep(0.01)
-                    St.examine_st('all')
                     enrg -= 500
+                    z = change_z(enrg)
+                    St.examine_st(z, z, 'all')
                     zsts1 = 'На исследование звезд '
                     zsts2 = 'было потрачено 500 единиц энергии'
                     zsts3 = f'Теперь у вас {enrg} единиц энергии'
@@ -213,9 +225,10 @@ while True:
                             print(f'{z}\n{att_bh}...')
                             for i in tqdm(range(250)):
                                 time.sleep(0.01)
-                            bh = int(bh)  # exception occures here
-                            Bh.examine_bh(bh)
                             enrg -= 250
+                            z = change_z(enrg)
+                            bh = int(bh)  # exception occures here
+                            Bh.examine_bh(z, bh)
                             zbh1 = f'На исследование черной дыры {bh} '
                             zbh2 = 'было потрачено 250 единиц энергии'
                             zbh3 = f'Теперь у вас {enrg} единиц энергии'
@@ -228,7 +241,6 @@ while True:
                             print(f'{z}\nВы ввели знак вместо номера\n{z}')
                         elif len(list(bh)) > 1:
                             print(f'{z}\nВы ввели знаки вместо номера\n{z}')
-                        enrg -= 250
                         er_bh1 = f'На исследование черной дыры {bh} '
                         er_bh2 = 'было потрачено 250 единиц энергии'
                         er_bh3 = f'Теперь у вас {enrg} единиц энергии'
@@ -251,8 +263,9 @@ while True:
                     print(f'{z}\nПытаемся исследовать черные дыры...')
                     for i in tqdm(range(500)):
                         time.sleep(0.01)
-                    Bh.examine_bh('all')
                     enrg -= 500
+                    z = change_z(enrg)
+                    Bh.examine_bh(z, z, 'all')
                     zbhs1 = 'На исследование черных дыр '
                     zbhs2 = 'было потрачено 500 единиц энергии'
                     zbhs3 = f'Теперь у вас {enrg} единиц энергии'
@@ -301,12 +314,14 @@ while True:
                         sp_res[en-1] = True  # we will get speed, but not name
                         if enrg + 1000 < 15000:
                             enrg += 1000
+                            z = change_z(enrg)
                             zen1 = 'Вы получили 1000 единиц энергии от звезды '
                             zen2 = f'Теперь у вас {enrg} единиц энергии'
                             print(f'{z}\n{zen1}{nst}\n{zen2}\n{z}')
                         else:
                             genrg = 15000 - enrg
                             enrg += genrg
+                            z = change_z(enrg)
                             zen1 = f'Вы получили получили {genrg} '
                             zen2 = f'единиц энергии от звезды {nst}'
                             zen3 = f'Так как ваш аккумулятор достиг лимита: '

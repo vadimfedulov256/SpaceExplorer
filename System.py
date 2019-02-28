@@ -20,7 +20,7 @@ def name_generator(size, chars=string.ascii_uppercase + string.digits):
 
 
 class System(object):
-    def __init__(self, s_p=sn, p_p=pn, z=z, size=4):
+    def __init__(self, s_p=sn, p_p=pn, size=4):
         self.n = name_generator(size)
         self.n1 = self.n+'_1'
         self.n2 = self.n+'_2'
@@ -34,6 +34,14 @@ class System(object):
     def hard(cls):
         return cls(s_p=[0.05, 0.2, 0.25, 0.15, 0.1, 0.05, 0.05], size=5)
 
+    def decor(function):
+        def decorate(self, z, *args):
+            print(z)
+            function(self, *args)
+            print(z)
+        return decorate
+
+    @decor
     def examine_sys(self):
         if self.s_ch == 'St':
             self.e1 = 'Вы видите звезду'
@@ -66,7 +74,7 @@ class System(object):
         elif self.s_ch == 'St2+Bh' or self.s_ch == 'Bh2+St':
             self.d1 = f'Вы прибыли в систему {self.n}:'
             self.d2 = f'{self.e1} {self.n1}, {self.n2}, {self.n3} {self.e2}'
-        print(f'{z}\n{self.d1}\n{self.d2}\n{z}')
+        print(f'{self.d1}\n{self.d2}')
 
     def get_ns(self, n):
         if n == 'sys':

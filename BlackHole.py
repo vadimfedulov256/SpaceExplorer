@@ -9,7 +9,7 @@ if __name__ == "__main__":
 
 
 class BlackHole(object):
-    def __init__(self, Sys, clp=cl_bn, z=z):
+    def __init__(self, Sys, clp=cl_bn):
         self.cl_var = ['малая', 'средне-малая', 'средне-большая', 'большая']
         self.cl_ch1 = np.random.choice(self.cl_var, p=clp)
         self.cl_ch2 = np.random.choice(self.cl_var, p=clp)
@@ -55,6 +55,13 @@ class BlackHole(object):
             self.nb1 = Sys.get_ns(3)
             self.b = 1
 
+    def decor(function):
+        def decorate(self, z, *args):
+            print(z)
+            function(self, *args)
+            print(z)
+        return decorate
+
     def __num_error(self, number):
         self.err1 = 'Вы ввели некорректный номер черной дыры'
         self.err2 = 'Помните, что нужно писать порядковый '
@@ -63,8 +70,7 @@ class BlackHole(object):
             self.err4 = 'В данном случае вы можете написать только "1"'
         elif number == 2:
             self.err4 = 'В данном случае вы можете написать только "1"/"2"'
-        self.err = f'{self.err1}\n{self.err2}{self.err3}\n{self.err4}'
-        print(f'{z}\n{self.err}\n{z}')
+        print(f'{self.err1}\n{self.err2}{self.err3}\n{self.err4}')
 
     def __multiple_form(self, n):
         if n <= 1:
@@ -86,49 +92,50 @@ class BlackHole(object):
         elif self.b == 2 and n == 2:
             return [False, True]  # error for multiple form
 
+    @decor
     def help_bh(self):
         if self.b is None:
             self.h1 = 'В данной системе нет черных дыр для исследования'
             self.h2 = 'Попробуйте исследовать систему, звезды'
             self.h3 = ' или совершить прыжок'
-            print(f'{z}\n{self.h1}\n{self.h2}{self.h3}\n{z}')
+            print(f'{self.h1}\n{self.h2}{self.h3}')
         elif self.b == 1:
             self.h1 = 'В данной системе есть одна черная дыра для исследования'
             self.h2 = 'Вы можете написать "1" для её исследования'
-            print(f'{z}\n{self.h1}\n{self.h2}\n{z}')
+            print(f'{self.h1}\n{self.h2}')
         elif self.b == 2:
             self.h1 = 'В данной системе есть две черные дыры для исследования'
             self.h2 = 'Вы можете написать "1" или "2" для исследования '
             self.h3 = 'одной из них'
-            print(f'{z}\n{self.h1}\n{self.h2}{self.h3}\n{z}')
+            print(f'{self.h1}\n{self.h2}{self.h3}')
 
-    def examine_bh(self, n):
-        if self.b is None:
-            self.ex_err = 'В данной системе нет черных дыр для исследования'
-            print(f'{z}\n{self.ex_err}\n{z}')
-        elif self.b == 2 and n == 'all':
+    def ex_bh(self, n):
+        if n == 1:
             self.form1 = self.__multiple_form(self.m1)
             self.desc1 = f'{self.nb1} - это {self.cl_ch1} черная дыра'
             self.desc2 = f'Имеет массу {self.m1} {self.form1}'
-            print(f'{z}\n{self.desc1}\n{self.desc2}\n{z}')
+            print(f'{self.desc1}\n{self.desc2}')
+        elif n == 2:
             self.form2 = self.__multiple_form(self.m2)
             self.desc3 = f'{self.nb2} - это {self.cl_ch2} черная дыра'
             self.desc4 = f'Имеет массу {self.m2} {self.form2}'
-            print(f'{self.desc3}\n{self.desc4}\n{z}')
+            print(f'{self.desc3}\n{self.desc4}')
+
+    @decor
+    def examine_bh(self, zin, n):
+        if self.b is None:
+            print('В данной системе нет черных дыр для исследования')
+        elif self.b == 2 and n == 'all':
+            self.ex_bh(1)
+            print(zin)
+            self.ex_bh(2)
         elif self.b == 1 and n == 'all':
-            self.ex_err = 'В данной системе находится только одна черная дыра'
-            print(f'{z}\n{self.ex_err}\n{z}')
+            print('В данной системе находится только одна черная дыра')
         elif self.b == 1 and n != 1:
             self.__num_error(1)
         elif self.b == 2 and n != 1 and n != 2:
             self.__num_error(2)
         elif self.b == 1 or self.b == 2 and n == 1:
-            self.form1 = self.__multiple_form(self.m1)
-            self.desc1 = f'{self.nb1} - это {self.cl_ch1} черная дыра'
-            self.desc2 = f'Имеет массу {self.m1} {self.form1}'
-            print(f'{z}\n{self.desc1}\n{self.desc2}\n{z}')
+            self.ex_bh(1)
         elif self.b == 2 and n == 2:
-            self.form2 = self.__multiple_form(self.m2)
-            self.desc3 = f'{self.nb2} - это {self.cl_ch2} черная дыра'
-            self.desc4 = f'Имеет массу {self.m2} {self.form2}'
-            print(f'{z}\n{self.desc3}\n{self.desc4}\n{z}')
+            self.ex_bh(2)

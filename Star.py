@@ -14,7 +14,7 @@ if __name__ == "__main__":
 
 
 class Star(object):
-    def __init__(self, Sys, clp=cl_sn, m1p=m1_sn, m2p=m2_sn, m3p=m3_sn, z=z):
+    def __init__(self, Sys, clp=cl_sn, m1p=m1_sn, m2p=m2_sn, m3p=m3_sn):
         self.cl_var = ['O', 'B', 'A', 'F', 'G', 'K', 'M']
         self.cl_ch1 = np.random.choice(self.cl_var, p=clp)
         self.cl_ch2 = np.random.choice(self.cl_var, p=clp)
@@ -184,6 +184,13 @@ class Star(object):
             self.t1 = k_t(self.t1)
             self.t2 = k_t(self.t2)
 
+    def decor(function):
+        def decorate(self, z, *args):
+            print(z)
+            function(self, *args)
+            print(z)
+        return decorate
+
     def __num_error(self, number):
             self.err1 = 'Вы ввели некорректный номер звезды'
             self.err2 = 'Помните, что нужно писать '
@@ -192,8 +199,7 @@ class Star(object):
                 self.err4 = 'В данном случае вы можете написать только "1"'
             elif number == 2:
                 self.err4 = 'В данном случае вы можете написать только "1"/"2"'
-            self.err = f'{self.err1}\n{self.err2}{self.err3}\n{self.err4}'
-            print(f'{z}\n{self.err}\n{z}')
+            print(f'{self.err1}\n{self.err2}{self.err3}\n{self.err4}')
 
     def __multiple_form(self, n, form):
         if form == 't':
@@ -262,38 +268,39 @@ class Star(object):
             elif self.cl_ch2 == 'M':
                 return 75
 
+    @decor
     def help_st(self, h_en):
         if h_en is False:
             if self.s is None:
                 self.h1 = 'В данной системе нет звезд для исследования'
                 self.h2 = 'Попробуйте исследовать систему, черные дыры'
                 self.h3 = ' или совершить прыжок'
-                print(f'{z}\n{self.h1}\n{self.h2}{self.h3}\n{z}')
+                print(f'{self.h1}\n{self.h2}{self.h3}')
             elif self.s == 1:
                 self.h1 = 'В данной системе есть одна звезда для исследования'
                 self.h2 = 'Вы можете написать "1" для её исследования'
-                print(f'{z}\n{self.h1}\n{self.h2}\n{z}')
+                print(f'{self.h1}\n{self.h2}')
             elif self.s == 2:
                 self.h1 = 'В данной системе есть две звезды для исследования'
                 self.h2 = 'Вы можете написать "1" или "2" для исследования '
                 self.h3 = 'одной из них'
-                print(f'{z}\n{self.h1}\n{self.h2}{self.h3}\n{z}')
+                print(f'{self.h1}\n{self.h2}{self.h3}')
         elif h_en is True:
             if self.s is None:
                 self.e1 = 'В данной системе нет звезд для подзарядки'
                 self.e2 = 'Если у вас не хватает энергии на следующий прыжок'
                 self.e3 = 'То к сожалению это конец вашего путешествия'
                 self.e4 = 'Напишите "Конец" или "Выход", чтобы увидеть титры'
-                print(f'{z}\n{self.e1}\n{self.e2}\n{self.e3}\n{self.e4}\n{z}')
+                print(f'{self.e1}\n{self.e2}\n{self.e3}\n{self.e4}')
             elif self.s == 1:
                 self.e1 = 'В данной системе есть одна звезда для подзарядки'
                 self.e2 = 'Вы можете написать "1" для зарядки от неё'
-                print(f'{z}\n{self.e1}\n{self.e2}\n{z}')
+                print(f'{self.e1}\n{self.e2}')
             elif self.s == 2:
                 self.e1 = 'В данной системе есть две звезды для подзарядки'
                 self.e2 = 'Вы можете написать "1" или "2" для зарядки от '
                 self.e3 = 'одной из них'
-                print(f'{z}\n{self.e1}\n{self.e2}{self.e3}\n{z}')
+                print(f'{self.e1}\n{self.e2}{self.e3}')
 
     def get_enrg(self, n):
         if n == 1 and self.s is not None:
@@ -341,41 +348,37 @@ class Star(object):
                 for i in tqdm(range(7500)):
                     time.sleep(0.01)
 
-    def examine_st(self, n):
-        if self.s is None:
-            self.ex_err = 'В данной системе нет звезд для исследования'
-            print(f'{z}\n{self.ex_err}\n{z}')
-        elif self.s == 2 and n == 'all':
+    def ex_st(self, n):
+        if n == 1:
             self.gr1 = self.__multiple_form(self.t1, form='t')
-            self.gr2 = self.__multiple_form(self.t2, form='t')
             self.form1 = self.__multiple_form(self.m1, form='m')
-            self.form2 = self.__multiple_form(self.m2, form='m')
             self.desc1 = f'{self.nst1} - это звезда класса {self.cl_ch1}.'
             self.desc2 = f'Имеет температуру {self.t1} {self.gr1}'
             self.desc3 = f'И массу {self.m1} {self.form1}'
-            print(f'{z}\n{self.desc1}\n{self.desc2}\n{self.desc3}\n{z}')
+            print(f'{self.desc1}\n{self.desc2}\n{self.desc3}')
+        elif n == 2:
+            self.gr2 = self.__multiple_form(self.t2, form='t')
+            self.form2 = self.__multiple_form(self.m2, form='m')
             self.desc4 = f'{self.nst2} - это звезда класса {self.cl_ch2}.'
             self.desc5 = f'Имеет температуру {self.t2} {self.gr2}'
             self.desc6 = f'И массу {self.m2} {self.form2}'
-            print(f'{self.desc4}\n{self.desc5}\n{self.desc6}\n{z}')
+            print(f'{self.desc4}\n{self.desc5}\n{self.desc6}')
+
+    @decor
+    def examine_st(self, zin, n):
+        if self.s is None:
+            print('В данной системе нет звезд для исследования')
+        elif self.s == 2 and n == 'all':
+            self.ex_st(1)
+            print(zin)
+            self.ex_st(2)
         elif self.s == 1 and n == 'all':
-            self.ex_err = 'В данной системе находится только одна звезда'
-            print(f'{z}\n{self.ex_err}\n{z}')
+            print('В данной системе находится только одна звезда')
         elif self.s == 1 and n != 1:
             self.__num_error(1)
         elif self.s == 2 and n != 1 and n != 2:
             self.__num_error(2)
         elif self.s == 1 or self.s == 2 and n == 1:
-            self.gr1 = self.__multiple_form(self.t1, form='t')
-            self.form1 = self.__multiple_form(self.m1, form='m')
-            self.desc1 = f'{self.nst1} - это звезда класса {self.cl_ch1}.'
-            self.desc2 = f'Имеет температуру {self.t1} {self.gr1}'
-            self.desc3 = f'И массу {self.m1} {self.form1}'
-            print(f'{z}\n{self.desc1}\n{self.desc2}\n{self.desc3}\n{z}')
+            self.ex_st(1)
         elif self.s == 2 and n == 2:
-            self.gr2 = self.__multiple_form(self.t2, form='t')
-            self.form2 = self.__multiple_form(self.m2, form='m')
-            self.desc4 = f'{self.nst2} - это звезда класса {self.cl_ch2}.'
-            self.desc5 = f'Имеет температуру {self.t2} {self.gr2}'
-            self.desc6 = f'И массу {self.m2} {self.form2}'
-            print(f'{z}\n{self.desc4}\n{self.desc5}\n{self.desc6}\n{z}')
+            self.ex_st(2)
