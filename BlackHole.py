@@ -66,9 +66,9 @@ class BlackHole(object):
         self.err1 = 'Вы ввели некорректный номер черной дыры'
         self.err2 = 'Помните, что нужно писать порядковый '
         self.err3 = 'номер объекта данного типа'
-        if number == 1:
+        if number == 1:  # this __num_error works only for examination (Bh)
             self.err4 = 'В данном случае вы можете написать только "1"'
-        elif number == 2:
+        elif number == 2:  # for help and riskjump we use help_bh
             self.err4 = 'В данном случае вы можете написать только "1"/"2"'
         print(f'{self.err1}\n{self.err2}{self.err3}\n{self.err4}')
 
@@ -93,21 +93,64 @@ class BlackHole(object):
             return [False, True]  # error for multiple form
 
     @decor
-    def help_bh(self):
-        if self.b is None:
-            self.h1 = 'В данной системе нет черных дыр для исследования'
-            self.h2 = 'Попробуйте исследовать систему, звезды'
-            self.h3 = ' или совершить прыжок'
-            print(f'{self.h1}\n{self.h2}{self.h3}')
-        elif self.b == 1:
-            self.h1 = 'В данной системе есть одна черная дыра для исследования'
-            self.h2 = 'Вы можете написать "1" для её исследования'
-            print(f'{self.h1}\n{self.h2}')
-        elif self.b == 2:
-            self.h1 = 'В данной системе есть две черные дыры для исследования'
-            self.h2 = 'Вы можете написать "1" или "2" для исследования '
-            self.h3 = 'одной из них'
-            print(f'{self.h1}\n{self.h2}{self.h3}')
+    def help_bh(self, h_j=False):
+        if h_j:
+            self.h1 = 'В данной системе есть '
+            self.h2 = 'две черные дыры для рискового прыжка'
+            self.h3 = 'Вы можете написать "1" или "2" для прыжка '
+            self.h4 = 'вблизи орбит одной из них'
+            print(f'{self.h1}{self.h2}\n{self.h3}{self.h4}')
+        else:
+            if self.b is None:
+                self.h1 = 'В данной системе нет черных дыр для исследования'
+                self.h2 = 'Попробуйте исследовать систему, звезды'
+                self.h3 = ' или совершить прыжок'
+                print(f'{self.h1}\n{self.h2}{self.h3}')
+            elif self.b == 1:
+                self.h1 = 'В данной системе есть только одна '
+                self.h2 = 'черная дыра для исследования'
+                self.h3 = 'Вы можете написать "1" для её исследования'
+                print(f'{self.h1}{self.h2}\n{self.h3}')
+            elif self.b == 2:
+                self.h1 = 'В данной системе есть '
+                self.h2 = 'две черные дыры для исследования'
+                self.h3 = 'Вы можете написать "1" или "2" для исследования '
+                self.h4 = 'одной из них'
+                print(f'{self.h1}{self.h2}\n{self.h3}{self.h4}')
+
+    def riskjump(self, n, diff):
+        luck = [False, True]
+        if n == 1:
+            if self.cl_ch1 == 'малая':
+                return np.random.choice(luck, p=[0.75, 0.25])
+            elif self.cl_ch1 == 'средне-малая':
+                return np.random.choice(luck, p=[0.6, 0.4])
+            elif self.cl_ch1 == 'средне-большая':
+                return np.random.choice(luck, p=[0.4, 0.6])
+            elif self.cl_ch1 == 'большая':
+                return np.random.choice(luck, p=[0.25, 0.75])
+        elif n == 2:
+            if self.cl_ch2 == 'малая':
+                return np.random.choice(luck, p=[0.75, 0.25])
+            elif self.cl_ch2 == 'средне-малая':
+                return np.random.choice(luck, p=[0.6, 0.4])
+            elif self.cl_ch2 == 'средне-большая':
+                return np.random.choice(luck, p=[0.4, 0.6])
+            elif self.cl_ch2 == 'большая':
+                return np.random.choice(luck, p=[0.25, 0.75])
+
+    def get_prob(self, n, diff):
+        if n == 1:
+            prob = diff * self.m1
+        elif n == 2:
+            if self.cl_ch2 == 'малая':
+                return '25%'
+            elif self.cl_ch2 == 'средне-малая':
+                return '40%'
+            elif self.cl_ch2 == 'средне-большая':
+                return '60%'
+            elif self.cl_ch2 == 'большая':
+                return '75%'
 
     def ex_bh(self, n):
         if n == 1:

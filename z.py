@@ -4,7 +4,7 @@ init()
 
 def change_z(enrg):
     if enrg < 187.5:
-        z1 = Fore.GREEN + '*' * 80
+        z1 = Fore.RED + '*' * 80
         return f'{z1}{Style.RESET_ALL}'
     elif enrg < (187.5 * 2):
         z1 = Fore.GREEN + '*'

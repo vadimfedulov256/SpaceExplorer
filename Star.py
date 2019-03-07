@@ -192,12 +192,12 @@ class Star(object):
         return decorate
 
     def __num_error(self, number):
-            self.err1 = 'Вы ввели некорректный номер звезды'
+            self.err1 = 'Вы ввели некорректный номер звезды для исследования'
             self.err2 = 'Помните, что нужно писать '
             self.err3 = 'порядковый номер объекта данного типа'
-            if number == 1:
+            if number == 1:  # this __num_error works only for examination (St)
                 self.err4 = 'В данном случае вы можете написать только "1"'
-            elif number == 2:
+            elif number == 2:  # for help and charge we use help_st
                 self.err4 = 'В данном случае вы можете написать только "1"/"2"'
             print(f'{self.err1}\n{self.err2}{self.err3}\n{self.err4}')
 
@@ -269,8 +269,28 @@ class Star(object):
                 return 75
 
     @decor
-    def help_st(self, h_en):
-        if h_en is False:
+    def help_st(self, h_en=False, z=None):
+        if h_en:
+            if self.s is None:
+                self.e1 = 'В данной системе нет звезд для подзарядки'
+                self.e2 = 'Если у вас не хватает энергии на следующий прыжок '
+                self.e3 = 'то вы можете сохранить данные и окончить игру'
+                self.e4 = 'Либо попытать удачи совершив рисковый прыжок '
+                self.e5 = 'с помощью черной дыры, рискуя потерять данные'
+                self.e6 = 'Напишите "Прыжок", чтобы совершить рисковый прыжок'
+                self.e7 = 'Напишите "Конец" или "Выход", чтобы увидеть титры'
+                print(f'{self.e1}\n{self.e2}{self.e3}\n{self.e4}{self.e5}')
+                print(f'{z}\n{self.e6}{self.e7}')
+            elif self.s == 1:
+                self.e1 = 'В данной системе есть одна звезда для подзарядки'
+                self.e2 = 'Вы можете написать "1" для зарядки от неё'
+                print(f'{self.e1}\n{self.e2}')
+            elif self.s == 2:
+                self.e1 = 'В данной системе есть две звезды для подзарядки'
+                self.e2 = 'Вы можете написать "1" или "2" для зарядки от '
+                self.e3 = 'одной из них'
+                print(f'{self.e1}\n{self.e2}{self.e3}')
+        else:
             if self.s is None:
                 self.h1 = 'В данной системе нет звезд для исследования'
                 self.h2 = 'Попробуйте исследовать систему, черные дыры'
@@ -285,22 +305,6 @@ class Star(object):
                 self.h2 = 'Вы можете написать "1" или "2" для исследования '
                 self.h3 = 'одной из них'
                 print(f'{self.h1}\n{self.h2}{self.h3}')
-        elif h_en is True:
-            if self.s is None:
-                self.e1 = 'В данной системе нет звезд для подзарядки'
-                self.e2 = 'Если у вас не хватает энергии на следующий прыжок'
-                self.e3 = 'То к сожалению это конец вашего путешествия'
-                self.e4 = 'Напишите "Конец" или "Выход", чтобы увидеть титры'
-                print(f'{self.e1}\n{self.e2}\n{self.e3}\n{self.e4}')
-            elif self.s == 1:
-                self.e1 = 'В данной системе есть одна звезда для подзарядки'
-                self.e2 = 'Вы можете написать "1" для зарядки от неё'
-                print(f'{self.e1}\n{self.e2}')
-            elif self.s == 2:
-                self.e1 = 'В данной системе есть две звезды для подзарядки'
-                self.e2 = 'Вы можете написать "1" или "2" для зарядки от '
-                self.e3 = 'одной из них'
-                print(f'{self.e1}\n{self.e2}{self.e3}')
 
     def get_enrg(self, n):
         if n == 1 and self.s is not None:

@@ -8,7 +8,7 @@ from System import System
 from BlackHole import BlackHole
 from Star import Star
 import achivements as ach
-import titles as tit
+import titles as t
 from z import change_z
 
 cj = 0
@@ -17,9 +17,12 @@ cst = 0
 csts = 0
 cbh = 0
 cbhs = 0
+hj = None
 
-enrg = random.randint(50, 70) * 100
+#enrg = random.randint(500, 700) * 10
+enrg = 0
 change_nj = True
+z = change_z(enrg)
 
 res = False
 p_res = [False, False, False]
@@ -27,7 +30,8 @@ sp_res = [False, False, False]
 
 hard = False
 
-z = change_z(enrg)
+err_single_str = 'Вы ввели знак вместо номера'
+err_multiple_str = 'Вы ввели знаки вместо номера'
 
 if __name__ == "__main__":
     print(f'{z}\nДобро пожаловать в')
@@ -37,18 +41,27 @@ if __name__ == "__main__":
     print('  / /|  /  __/ /_/ / /  / /_/ / /   ___/ / /_/ / /_/ / /__/  __/ ')
     print(' /_/ |_/\___/\__,_/_/   \__,_/_/   /____/ .___/\__,_/\___/\___/  ')
     print('                                       /_/                       ')
-    print('                                                            v1.1 ')
+    print('                                                     v1.2(alpha) ')
     print(z)
+
+
+def end(hard, start, cj, csys, cst, csts, cbh, cbhs, hj):
+    if hard and hj is not None:
+        t.titles(hard, start, cj, csys, cst, csts, cbh, cbhs, hj)
+    else:
+        hard = h
+        start = s
+        t.titles(hard, start, cj, csys, cst, csts, cbh, cbhs)
 
 
 start = time.time()
 
-Sys = System()
+Sys = System(s_p=[0, 0, 0, 1, 0, 0, 0])
 St = Star(Sys)
 Bh = BlackHole(Sys)
 
 while True:
-    if change_nj is True:
+    if change_nj:
         nj = random.randint(30, 80) * 100
     change_nj = False
     act = input('Напишите ваше действие: ')
@@ -59,9 +72,77 @@ while True:
         app = input(f'{z}\n{j1}\n{j2}\n{j3}\n{z}\n')
         if app.lower() == 'д' or app.lower() == 'да':
             if enrg < nj:
-                a = 'У вас недостаточно энергии для совершения прыжка'
-                b = 'Попробуйте получить энергию от ближайшей звезды'
-                print(f'{z}\n{a}\n{b}\n{z}')
+                if Sys.get_obj('St') is not None:
+                    zj1 = 'У вас недостаточно энергии для совершения прыжка'
+                    zj2 = 'Попробуйте получить энергию от ближайшей звезды'
+                    print(f'{z}\n{zj1}\n{zj2}\n{z}')
+                elif Sys.get_obj('St') is None and Bh.b == 1:
+                    diff = nj - enrg
+                    prob1 = Bh.get_prob(1, diff)
+                    zj1 = 'У вас недостаточно энергии для совершения прыжка'
+                    zj2 = 'А в данной системе совсем нет звезд для зарядки'
+                    if Sys.get_obj('Bh') == [1]:
+                        if p_res[0]:
+                            b1 = Sys.get_ns(1)
+                        else:
+                            b1 = 1
+                    elif Sys.get_obj('Bh') == [2]:
+                        if p_res[1]:
+                            b1 = Sys.get_ns(2)
+                        else:
+                            b1 = 2
+                    elif Sys.get_obj('Bh') == [3]:
+                        if p_res[2]:
+                            b1 = Sys.get_ns(3)
+                        else:
+                            b1 = 3
+                    zj3 = f'Тем не менее присутствует черная дыра {b1}'
+                    zj4 = 'Вероятность совершить удачный прыжок, пройдя вблизи'
+                    zj5 = f' черной дыры {b1} равна {prob1}'
+                    print(f'{z}\n{zj1}\n{zj2}\n{zj3}\n{zj4}{zj5}')
+                    ask = 'Вы действительно хотите рискнуть своими данными? '
+                    app = input(f'{ask}Д(а)/Н\n{z}\n')
+                    if app.lower() == 'д' or app.lower() == 'да':
+                        Bh.riskjump(1, prob1)
+                    else:
+                        end(hard, start, cj, csys, cst, csts, cbh, cbhs, hj)
+                        break
+                elif Sys.get_obj('St') is None and Bh.b == 2:
+                    diff = nj - enrg
+                    prob1 = Bh.get_prob(1, diff)
+                    prob2 = Bh.get_prob(2, diff)
+                    zj1 = 'У вас недостаточно энергии для совершения прыжка'
+                    zj2 = 'А в данной системе совсем нет звезд для зарядки'
+                    if p_res[0]:
+                        b1 = Sys.get_ns(1)
+                    else:
+                        b1 = 1
+                    if p_res[1]:
+                        b2 = Sys.get_ns(2)
+                    else:
+                        b2 = 2
+                    zj3 = f'Тем не менее присутствуют черные дыры {b1}, {b2}'
+                    zj4 = 'Вероятности совершить удачный прыжок пройдя вблизи'
+                    zj5 = f' черной дыры {b1} и {b2}'
+                    zj6 = f'Cоответственно равны {prob1} и {prob2}'
+                    print(f'{z}\n{zj1}\n{zj2}\n{zj3}\n{zj4}{zj5}\n{zj6}')
+                    ask = 'Вы действительно хотите рискнуть своими данными? '
+                    app = input(f'{ask}Д(а)/Н\n{z}\n')
+                    if app.lower() == 'д' or app.lower() == 'да':
+                        bh = input('Напишите номер черной дыры для прыжка: ')
+                        if bh.lower() == 'помощь':
+                            Bh.help_bh(h_j=True)
+                        else:
+                            try:
+                                bh = int(bh)  # exception occures here
+                                prob = Bh.get_prob(bh, diff)
+                                Bh.riskjump(bh, prob)
+                            except:
+                                if len(list(bh)) == 1:
+                                    print(f'{z}\n{err_single_str}\n{z}')
+                                elif len(list(bh)) > 1:
+                                    print(f'{z}\n{err_multiple_str}\n{z}')
+
             else:
                 print(f'{z}\nПрыжок в процессе...')
                 for i in tqdm(range(nj)):
@@ -74,17 +155,17 @@ while True:
                 p_res = [False, False, False]
                 sp_res = [False, False, False]
                 cj += 1
-                if hard is not True:
-                    Sys = System()
-                    St = Star(Sys)
-                    Bh = BlackHole(Sys)
-                else:
+                if hard:
                     Sys = System.hard()
                     St = Star(Sys)
                     Bh = BlackHole(Sys)
-                j1 = f'На прыжок было потрачено {nj} единиц энергии'
-                j2 = f'Теперь у вас {enrg} единиц энергии'
-                print(f'{j1}\n{j2}\n{z}')
+                else:
+                    Sys = System()
+                    St = Star(Sys)
+                    Bh = BlackHole(Sys)
+                zj1 = f'На прыжок было потрачено {nj} единиц энергии'
+                zj2 = f'Теперь у вас {enrg} единиц энергии'
+                print(f'{zj1}\n{zj2}\n{z}')
                 ach.j(cj)
         else:
             print(f'Отмена прыжка...\n{z}')
@@ -123,7 +204,7 @@ while True:
         elif react.lower() == 'звезду':
             st = input('Напишите номер звезды для исследования: ')
             if st.lower() == 'помощь':
-                St.help_st(h_en=False)
+                St.help_st()
             else:
                 st1 = f'Для исследования звезды {st} '
                 st2 = 'потребуется 250 единиц энергии'
@@ -152,16 +233,16 @@ while True:
                             zst2 = 'было потрачено 250 единиц энергии'
                             zst3 = f'Теперь у вас {enrg} единиц энергии'
                             print(f'{zst1}{zst2}\n{zst3}\n{z}')
-                            if St._multi_single_error(st)[0] is not True:
-                                p_res[st-1] = True  # learn name (only for St)
+                            if not St._multi_single_error(st)[0]:
+                                p_res[st-1] = True  # learn name
                                 sp_res[st-1] = True  # learn speed of charge
-                                cst += 1
+                                cst += 1             # (only for St)
                                 ach.st(cst)
                     except:
                         if len(list(st)) == 1:
-                            print(f'{z}\nВы ввели знак вместо номера\n{z}')
+                            print(f'{z}\n{err_single_str}\n{z}')
                         elif len(list(st)) > 1:
-                            print(f'{z}\nВы ввели знаки вместо номера\n{z}')
+                            print(f'{z}\n{err_multiple_str}\n{z}')
                         er_st1 = f'На исследование звезды {st} '
                         er_st2 = 'было потрачено 250 единиц энергии'
                         er_st3 = f'Теперь у вас {enrg} единиц энергии'
@@ -191,11 +272,11 @@ while True:
                     zsts2 = 'было потрачено 500 единиц энергии'
                     zsts3 = f'Теперь у вас {enrg} единиц энергии'
                     print(f'{zsts1}{zsts2}\n{zsts3}\n{z}')
-                    if St._multi_single_error('all')[1] is not True:
-                        p_res[0] = True  # learn names (only for St)
+                    if not St._multi_single_error('all')[1]:
+                        p_res[0] = True  # learn names
                         p_res[1] = True
                         sp_res[0] = True  # learn speeds of charge
-                        sp_res[1] = True
+                        sp_res[1] = True  # (only for Stars)
                         csts += 1
                         ach.sts(csts)
             else:
@@ -233,14 +314,15 @@ while True:
                             zbh2 = 'было потрачено 250 единиц энергии'
                             zbh3 = f'Теперь у вас {enrg} единиц энергии'
                             print(f'{zbh1}{zbh2}\n{zbh3}\n{z}')
-                            if Bh._multi_single_error(bh)[0] is not True:
+                            if not Bh._multi_single_error(bh)[0]:
+                                p_res[st-1] = True
                                 cbh += 1
                                 ach.bh(cbh)
                     except:
                         if len(list(bh)) == 1:
-                            print(f'{z}\nВы ввели знак вместо номера\n{z}')
+                            print(f'{z}\n{err_single_str}\n{z}')
                         elif len(list(bh)) > 1:
-                            print(f'{z}\nВы ввели знаки вместо номера\n{z}')
+                            print(f'{z}\n{err_multiple_str}\n{z}')
                         er_bh1 = f'На исследование черной дыры {bh} '
                         er_bh2 = 'было потрачено 250 единиц энергии'
                         er_bh3 = f'Теперь у вас {enrg} единиц энергии'
@@ -270,7 +352,9 @@ while True:
                     zbhs2 = 'было потрачено 500 единиц энергии'
                     zbhs3 = f'Теперь у вас {enrg} единиц энергии'
                     print(f'{zbhs1}{zbhs2}\n{zbhs3}\n{z}')
-                    if Bh._multi_single_error('all')[1] is not True:
+                    if not Bh._multi_single_error('all')[1]:
+                        p_res[0] = True  # learn names
+                        p_res[1] = True
                         cbhs += 1
                         ach.bhs(cbhs)
             else:
@@ -280,27 +364,22 @@ while True:
             h1 = 'Список возможных комманд для исследования объектов:'
             h2 = '"Систему", "Звезду", "Звезды", "Черную дыру", "Черные дыры"'
             print(f'{z}\n{h1}\n{h2}\n{z}')
-        elif react.lower() == 'выход' or react.lower() == 'конец':
-            if hard is True:
-                tit.titles(hard, start, cj, csys, cst, csts, cbh, cbhs, hj)
-            elif hard is False:
-                tit.titles(hard, start, cj, csys, cst, csts, cbh, cbhs)
-            break
+
         else:
             print('Непонятен объект исследования, попробуйте еще раз')
 
     elif act.lower() == 'зарядиться':
         en = input('Выберите звезду для подзарядки: ')
         if en.lower() == 'помощь':
-            St.help_st(h_en=True)
+            St.help_st(h_en=True, z=z)
         else:
             try:
-                en = int(en)
-                if St._multi_single_error(en)[0] is not True:
-                    if res is True or p_res[en-1] is True:
+                en = int(en)  # exception occures here
+                if not St._multi_single_error(en)[0]:
+                    if res or p_res[en-1]:
                         nst = Sys.get_ns(en)
-                    elif res is False and p_res[en-1] is False:
-                        nst = en
+                    else:  # we use _multi_single_error earlier to make game
+                        nst = en  # easier when charging
                     en1 = f'Зарядка солнечных батарей от звезды {nst} займет '
                     if sp_res[en-1] is True:
                         clt = f'{St._get_class_time(en)} секунд'
@@ -330,12 +409,12 @@ while True:
                     else:
                         print(f'Отмена зарядки...\n{z}')
                 else:
-                    St.help_st(h_en=True)  # we use _multi_single_error earlier
-            except:                        # to make game easier when recharge
+                    St.help_st(h_en=True, z=z)
+            except:
                 if len(list(str(en))) == 1:
-                    print(f'{z}\nВы ввели знак вместо номера\n{z}')
+                    print(f'{z}\n{err_single_str}\n{z}')
                 elif len(list(str(en))) > 1:
-                    print(f'{z}\nВы ввели знаки вместо номера\n{z}')
+                    print(f'{z}\n{err_multiple_str}\n{z}')
 
     elif act.lower() == 'энергия':
         print(f'{z}\nВаша энергия равна: {enrg} / 15000\n{z}')
@@ -351,10 +430,7 @@ while True:
         print(f'{z}\nОООООО МОЯЯЯ ОБОРОООНААААА!!! HARD ВКЛЮЧЕН ;_)\n{z}')
 
     elif act.lower() == 'выход' or act.lower() == 'конец':
-        if hard is True:
-            tit.titles(hard, start, cj, csys, cst, csts, cbh, cbhs, hj)
-        elif hard is False:
-            tit.titles(hard, start, cj, csys, cst, csts, cbh, cbhs)
+        end(hard, start, cj, csys, cst, csts, cbh, cbhs, hj)
         break
 
     else:
