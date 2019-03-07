@@ -155,8 +155,8 @@ while True:
                 p_res = [False, False, False]
                 sp_res = [False, False, False]
                 cj += 1
-                if hard:
-                    Sys = System.hard()
+                if hard:  # here definetely will be markov chain in future
+                    Sys = System.hard()  # releases
                     St = Star(Sys)
                     Bh = BlackHole(Sys)
                 else:

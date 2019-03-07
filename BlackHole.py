@@ -63,7 +63,7 @@ class BlackHole(object):
         return decorate
 
     def __num_error(self, number):
-        self.err1 = 'Вы ввели некорректный номер черной дыры'
+        self.err1 = 'Вы ввели некорректный номер черной дыры для исследования'
         self.err2 = 'Помните, что нужно писать порядковый '
         self.err3 = 'номер объекта данного типа'
         if number == 1:  # this __num_error works only for examination (Bh)
@@ -139,18 +139,66 @@ class BlackHole(object):
             elif self.cl_ch2 == 'большая':
                 return np.random.choice(luck, p=[0.25, 0.75])
 
+    @staticmethod  # here definetely will be logistic regression instead
+    def diff_measure(diff):  # of boolean logic in future releases
+        if diff < 1000:
+            return 40
+        elif diff < 1500:
+            return 37.5
+        elif diff < 2000:
+            return 35
+        elif diff < 2500:
+            return 32.5
+        elif diff < 3000:
+            return 30
+        elif diff < 3500:
+            return 27.5
+        elif diff < 4000:
+            return 25
+        elif diff < 4500:
+            return 22.5
+        elif diff < 5000:
+            return 20
+        elif diff < 5500:
+            return 17.5
+        elif diff < 6000:
+            return 15
+        elif diff < 6500:
+            return 12.5
+        elif diff < 7000:
+            return 10
+        elif diff < 7500:
+            return 7.5
+        elif diff <= 8000:
+            return 5
+
     def get_prob(self, n, diff):
         if n == 1:
-            prob = diff * self.m1
+            if self.cl_ch1 == 'малая':
+                prob = 25 + self.diff_measure(diff)
+                return prob
+            elif self.cl_ch1 == 'средне-малая':
+                prob = 20 + self.diff_measure(diff)
+                return prob
+            elif self.cl_ch1 == 'средне-большая':
+                prob = 15 + self.diff_measure(diff)
+                return prob
+            elif self.cl_ch1 == 'большая':
+                prob = 10 + self.diff_measure(diff)
+                return prob
         elif n == 2:
             if self.cl_ch2 == 'малая':
-                return '25%'
+                prob = 25 + self.diff_measure(diff)
+                return prob
             elif self.cl_ch2 == 'средне-малая':
-                return '40%'
+                prob = 20 + self.diff_measure(diff)
+                return prob
             elif self.cl_ch2 == 'средне-большая':
-                return '60%'
+                prob = 15 + self.diff_measure(diff)
+                return prob
             elif self.cl_ch2 == 'большая':
-                return '75%'
+                prob = 10 + self.diff_measure(diff)
+                return prob
 
     def ex_bh(self, n):
         if n == 1:
