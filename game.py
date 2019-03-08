@@ -40,20 +40,22 @@ if __name__ == "__main__":
 |  / /|  /  __/ /_/ / /  / /_/ / /   ___/ / /_/ / /_/ / /__/  __/ |
 | /_/ |_/\___/\__,_/_/   \__,_/_/   /____/ .___/\__,_/\___/\___/  |
 |                                       /_/                       |
-                                                     v1.2(beta) '''
+                                                     v1.2(gamma) '''
     print(f'{z}\nДобро пожаловать в\n{l}\n{z}')
 
-def riskjumping(time):
+
+def riskjumping(t):
     print(f'{z}\nОпределяем траекторию полета...')
-    for i in tqdm(range(time[0])):
+    for i in tqdm(range(t[0])):
         time.sleep(0.01)
     print(f'{z}\nОпределяем время и место сброса балласта...')
-    for i in tqdm(range(time[1])):
+    for i in tqdm(range(t[1])):
         time.sleep(0.01)
     print(f'{z}\nНачинаем полет...')
-    for i in tqdm(range(time[2])):
+    for i in tqdm(range(t[2])):
         time.sleep(0.01)
     print(z)
+
 
 def end(hard, start, cj, csys, cst, csts, cbh, cbhs, hj):
     if hard and hj is not None:

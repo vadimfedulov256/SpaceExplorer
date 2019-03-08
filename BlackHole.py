@@ -118,9 +118,22 @@ class BlackHole(object):
                 self.h4 = 'одной из них'
                 print(f'{self.h1}{self.h2}\n{self.h3}{self.h4}')
 
-    #def get_t(self, n):
-        #if n == 1:
-   # here should be a lot of different stuff
+    def get_t(self, n):
+        w = [-25., 2750.]
+        b = [8.83838384e-03, -9.84848485e-01, -6.90656566e+01, 8.25000000e+03]
+        t = [-50., 7500.]
+        if n == 1:
+            way = np.polyval(w, self.m1)
+            ballast = np.polyval(b, self.m1)
+            time = np.polyval(t, self.m1)
+        if n == 2:
+            way = np.polyval(w, self.m2)
+            ballast = np.polyval(b, self.m2)
+            time = np.polyval(t, self.m2)
+        way = np.array(np.round(way), dtype=np.int32)
+        ballast = np.array(np.round(ballast), dtype=np.int32)
+        time = np.array(np.round(time), dtype=np.int32)
+        return [way, ballast, time]
 
     @staticmethod  # linear regression is used here
     def diff_measure(diff):
@@ -128,7 +141,7 @@ class BlackHole(object):
 
     @staticmethod  # polynomial regression with power of 3 is used here
     def mass_measure(mass):
-        d = [-2.70009478e-08, 8.10784055e-05, -9.09200422e-02, 5.39200308e+01]
+        d = [-1.04370946e-07, 1.91054932e-04, -1.35520621e-01, 5.86021300e+01]
         return np.polyval(d, mass)
 
     def get_prob(self, n, diff):
@@ -138,7 +151,10 @@ class BlackHole(object):
         elif n == 2:
             mass_m = self.mass_measure(self.m2)
         prob = np.add(mass_m, diff_m)
-        return np.round(prob, decimals=1)
+        if np.round(prob, decimals=1) > 100.0:
+            return 99.9
+        else:
+            return np.round(prob, decimals=1)
 
     def riskjump(self, n, diff, prob):
         luck = [False, True]
