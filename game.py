@@ -20,7 +20,7 @@ cbhs = 0
 hj = None
 
 #enrg = random.randint(500, 700) * 10
-enrg = 0
+enrg = 1000
 change_nj = True
 z = change_z(enrg)
 
@@ -34,16 +34,26 @@ err_single_str = 'Вы ввели знак вместо номера'
 err_multiple_str = 'Вы ввели знаки вместо номера'
 
 if __name__ == "__main__":
-    print(f'{z}\nДобро пожаловать в')
-    print('''|     _   __                      __   _____                      |
+    l = '''|     _   __                      __   _____                      |
 |    / | / /__  __  ___________ _/ /  / ___/____  ____ _________  |
 |   /  |/ / _ \/ / / / ___/ __ `/ /   \__ \/ __ \/ __ `/ ___/ _ \ |
 |  / /|  /  __/ /_/ / /  / /_/ / /   ___/ / /_/ / /_/ / /__/  __/ |
 | /_/ |_/\___/\__,_/_/   \__,_/_/   /____/ .___/\__,_/\___/\___/  |
 |                                       /_/                       |
-                                                     v1.2(alpha) ''')
-    print(z)
+                                                     v1.2(beta) ''')
+    print(f'{z}\nДобро пожаловать в\n{l}\n{z}')
 
+def riskjumping(time):
+    print(f'{z}\nОпределяем траекторию полета...')
+    for i in tqdm(range(time[0])):
+        time.sleep(0.01)
+    print(f'{z}\nОпределяем время и место сброса балласта...')
+    for i in tqdm(range(time[1])):
+        time.sleep(0.01)
+    print(f'{z}\nНачинаем полет...')
+    for i in tqdm(range(time[2]):
+        time.sleep(0.01)
+    print(z)
 
 def end(hard, start, cj, csys, cst, csts, cbh, cbhs, hj):
     if hard and hj is not None:
@@ -98,12 +108,18 @@ while True:
                             b1 = 3
                     zj3 = f'Тем не менее присутствует черная дыра {b1}'
                     zj4 = 'Вероятность совершить удачный прыжок, пройдя вблизи'
-                    zj5 = f' черной дыры {b1} равна {prob1}'
+                    zj5 = f' черной дыры {b1} равна {prob1}%'
                     print(f'{z}\n{zj1}\n{zj2}\n{zj3}\n{zj4}{zj5}')
                     ask = 'Вы действительно хотите рискнуть своими данными? '
                     app = input(f'{ask}Д(а)/Н\n{z}\n')
                     if app.lower() == 'д' or app.lower() == 'да':
-                        Bh.riskjump(1, prob1)
+                        riskjumping(Bh.get_t(bh))
+                        enrg -= diff
+                        if Bh.riskjump(1, diff, prob1):
+                            pass
+                        else:
+                            print('NoeargreiagnIREOGREUGVJOEIRUHY/...' * 1000)
+                            break
                     else:
                         end(hard, start, cj, csys, cst, csts, cbh, cbhs, hj)
                         break
@@ -124,7 +140,7 @@ while True:
                     zj3 = f'Тем не менее присутствуют черные дыры {b1}, {b2}'
                     zj4 = 'Вероятности совершить удачный прыжок пройдя вблизи'
                     zj5 = f' черной дыры {b1} и {b2}'
-                    zj6 = f'Cоответственно равны {prob1} и {prob2}'
+                    zj6 = f'Cоответственно равны {prob1}% и {prob2}%'
                     print(f'{z}\n{zj1}\n{zj2}\n{zj3}\n{zj4}{zj5}\n{zj6}')
                     ask = 'Вы действительно хотите рискнуть своими данными? '
                     app = input(f'{ask}Д(а)/Н\n{z}\n')
@@ -136,7 +152,13 @@ while True:
                             try:
                                 bh = int(bh)  # exception occures here
                                 prob = Bh.get_prob(bh, diff)
-                                Bh.riskjump(bh, prob)
+                                riskjumping(Bh.get_t(bh))
+                                enrg -= diff
+                                if Bh.riskjump(bh, diff, prob):
+                                    pass
+                                else:
+                                    print('NoeargreiagnIREOGREUGVJO...' * 1000)
+                                    break
                             except:
                                 if len(list(bh)) == 1:
                                     print(f'{z}\n{err_single_str}\n{z}')

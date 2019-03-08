@@ -118,87 +118,33 @@ class BlackHole(object):
                 self.h4 = 'одной из них'
                 print(f'{self.h1}{self.h2}\n{self.h3}{self.h4}')
 
-    def riskjump(self, n, diff):
-        luck = [False, True]
-        if n == 1:
-            if self.cl_ch1 == 'малая':
-                return np.random.choice(luck, p=[0.75, 0.25])
-            elif self.cl_ch1 == 'средне-малая':
-                return np.random.choice(luck, p=[0.6, 0.4])
-            elif self.cl_ch1 == 'средне-большая':
-                return np.random.choice(luck, p=[0.4, 0.6])
-            elif self.cl_ch1 == 'большая':
-                return np.random.choice(luck, p=[0.25, 0.75])
-        elif n == 2:
-            if self.cl_ch2 == 'малая':
-                return np.random.choice(luck, p=[0.75, 0.25])
-            elif self.cl_ch2 == 'средне-малая':
-                return np.random.choice(luck, p=[0.6, 0.4])
-            elif self.cl_ch2 == 'средне-большая':
-                return np.random.choice(luck, p=[0.4, 0.6])
-            elif self.cl_ch2 == 'большая':
-                return np.random.choice(luck, p=[0.25, 0.75])
+    #def get_t(self, n):
+        #if n == 1:
+   # here should be a lot of different stuff
 
-    @staticmethod  # here definetely will be logistic regression instead
-    def diff_measure(diff):  # of boolean logic in future releases
-        if diff < 1000:
-            return 40
-        elif diff < 1500:
-            return 37.5
-        elif diff < 2000:
-            return 35
-        elif diff < 2500:
-            return 32.5
-        elif diff < 3000:
-            return 30
-        elif diff < 3500:
-            return 27.5
-        elif diff < 4000:
-            return 25
-        elif diff < 4500:
-            return 22.5
-        elif diff < 5000:
-            return 20
-        elif diff < 5500:
-            return 17.5
-        elif diff < 6000:
-            return 15
-        elif diff < 6500:
-            return 12.5
-        elif diff < 7000:
-            return 10
-        elif diff < 7500:
-            return 7.5
-        elif diff <= 8000:
-            return 5
+    @staticmethod  # linear regression is used here
+    def diff_measure(diff):
+        return np.polyval([-5.0e-03, 4.5e+01], diff)
+
+    @staticmethod  # polynomial regression with power of 3 is used here
+    def mass_measure(mass):
+        d = [-2.70009478e-08, 8.10784055e-05, -9.09200422e-02, 5.39200308e+01]
+        return np.polyval(d, mass)
 
     def get_prob(self, n, diff):
+        diff_m = self.diff_measure(diff)
         if n == 1:
-            if self.cl_ch1 == 'малая':
-                prob = 25 + self.diff_measure(diff)
-                return prob
-            elif self.cl_ch1 == 'средне-малая':
-                prob = 20 + self.diff_measure(diff)
-                return prob
-            elif self.cl_ch1 == 'средне-большая':
-                prob = 15 + self.diff_measure(diff)
-                return prob
-            elif self.cl_ch1 == 'большая':
-                prob = 10 + self.diff_measure(diff)
-                return prob
+            mass_m = self.mass_measure(self.m1)
         elif n == 2:
-            if self.cl_ch2 == 'малая':
-                prob = 25 + self.diff_measure(diff)
-                return prob
-            elif self.cl_ch2 == 'средне-малая':
-                prob = 20 + self.diff_measure(diff)
-                return prob
-            elif self.cl_ch2 == 'средне-большая':
-                prob = 15 + self.diff_measure(diff)
-                return prob
-            elif self.cl_ch2 == 'большая':
-                prob = 10 + self.diff_measure(diff)
-                return prob
+            mass_m = self.mass_measure(self.m2)
+        prob = np.add(mass_m, diff_m)
+        return np.round(prob, decimals=1)
+
+    def riskjump(self, n, diff, prob):
+        luck = [False, True]
+        plus_prob = prob * 0.01
+        neg_prob = 1.0 - plus_prob
+        return np.random.choice(luck, p=[neg_prob, plus_prob])
 
     def ex_bh(self, n):
         if n == 1:
