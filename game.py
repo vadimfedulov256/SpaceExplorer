@@ -40,7 +40,7 @@ if __name__ == "__main__":
 |  / /|  /  __/ /_/ / /  / /_/ / /   ___/ / /_/ / /_/ / /__/  __/ |
 | /_/ |_/\___/\__,_/_/   \__,_/_/   /____/ .___/\__,_/\___/\___/  |
 |                                       /_/                       |
-                                                     v1.2(beta) ''')
+                                                     v1.2(beta) '''
     print(f'{z}\nДобро пожаловать в\n{l}\n{z}')
 
 def riskjumping(time):
@@ -51,7 +51,7 @@ def riskjumping(time):
     for i in tqdm(range(time[1])):
         time.sleep(0.01)
     print(f'{z}\nНачинаем полет...')
-    for i in tqdm(range(time[2]):
+    for i in tqdm(range(time[2])):
         time.sleep(0.01)
     print(z)
 
@@ -118,7 +118,7 @@ while True:
                         if Bh.riskjump(1, diff, prob1):
                             pass
                         else:
-                            print('NoeargreiagnIREOGREUGVJOEIRUHY/...' * 1000)
+                            print('NoeargreiagnIREOGREUGVJO...' * 1000)
                             break
                     else:
                         end(hard, start, cj, csys, cst, csts, cbh, cbhs, hj)
